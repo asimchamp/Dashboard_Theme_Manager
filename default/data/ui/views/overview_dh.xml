@@ -19,7 +19,7 @@
                     <div class="nav-links">
                       <a href="#features">Features</a>
                       <a href="#how-it-works">How it Works</a>
-                      <a href="#docs">Docs</a>
+                      <a href="theme_dh">Themes</a>
                     </div>
                     <a href="#" class="cta-button">Get Started</a>
                   </div>
@@ -35,9 +35,9 @@
                         your data visualization experience.
                       </p>
                       <div class="hero-buttons">
-                        <a href="#" class="cta-button">Download Now</a>
-                        <a href="#features" class="cta-button secondary"
-                          >Explore Features</a
+                        <a href="home_dh" class="cta-button">Dashboard</a>
+                        <a href="theme_dh" class="cta-button secondary"
+                          >Explore Themess</a
                         >
                       </div>
                     </div>
@@ -215,19 +215,7 @@
                       </p>
                     </div>
                     <div class="step-visual glass glass-card">
-                      <!-- Visual placeholder -->
-                      <div
-                        style="
-                          width: 100%;
-                          height: 100%;
-                          display: flex;
-                          align-items: center;
-                          justify-content: center;
-                          color: rgba(255, 255, 255, 0.2);
-                        "
-                      >
-                        Dashboard Selection UI
-                      </div>
+                      <img src="/static/app/dashboard_theme_manager/images/app/step-number-01.png" alt="Choose a Theme" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" />
                     </div>
                   </div>
 
@@ -241,19 +229,7 @@
                       </p>
                     </div>
                     <div class="step-visual glass glass-card">
-                      <!-- Visual placeholder -->
-                      <div
-                        style="
-                          width: 100%;
-                          height: 100%;
-                          display: flex;
-                          align-items: center;
-                          justify-content: center;
-                          color: rgba(255, 255, 255, 0.2);
-                        "
-                      >
-                        Theme Gallery UI
-                      </div>
+                      <img src="/static/app/dashboard_theme_manager/images/app/step-number-02.png" alt="Select Your Dashboard" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" />
                     </div>
                   </div>
 
@@ -267,19 +243,7 @@
                       </p>
                     </div>
                     <div class="step-visual glass glass-card">
-                      <!-- Visual placeholder -->
-                      <div
-                        style="
-                          width: 100%;
-                          height: 100%;
-                          display: flex;
-                          align-items: center;
-                          justify-content: center;
-                          color: rgba(255, 255, 255, 0.2);
-                        "
-                      >
-                        Success State UI
-                      </div>
+                      <img src="/static/app/dashboard_theme_manager/images/app/step-number-03.png" alt="Apply and Deploy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" />
                     </div>
                   </div>
                 </section>
@@ -385,52 +349,52 @@
                           Elevating Splunk dashboards to the next level with modern design principles.
                         </p>
                         <div class="social-links">
-                            <a href="#" aria-label="Github"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                            <a href="https://github.com/asimchamp" aria-label="Github"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
                             <a href="#" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
                             <a href="#" aria-label="Splunkbase"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 20 19 12 7 4"></polyline></svg></a>
                         </div>
                       </div>
 
-                      <!-- Product Column -->
+                      <!-- Themes Column -->
                       <div class="footer-col">
-                        <h4>Product</h4>
+                        <h4>Themes</h4>
                         <div class="footer-menu">
-                            <a href="#features">Features</a>
-                            <a href="#">Templates</a>
-                            <a href="#how-it-works">Showcase</a>
-                            <a href="#">Changelog</a>
+                            <a href="theme_dh">Theme Gallery</a>
+                            <a href="#features">All Themes</a>
+                            <a href="home_dh">Dashboard Overview</a>
+                            <a href="#how-it-works">How It Works</a>
                         </div>
                       </div>
 
-                      <!-- Resources Column -->
+                      <!-- Support Column -->
                       <div class="footer-col">
-                        <h4>Resources</h4>
+                        <h4>Support</h4>
                         <div class="footer-menu">
+                            <a href="https://github.com/asimchamp" target="_blank">GitHub</a>
                             <a href="#docs">Documentation</a>
-                            <a href="#">API Reference</a>
-                            <a href="#">Community Hub</a>
-                            <a href="#">Blog</a>
+                            <a href="https://github.com/asimchamp/dashboard_theme_manager/issues" target="_blank">Report Issue</a>
+                            <a href="#features">Features</a>
                         </div>
                       </div>
 
-                      <!-- Legal Column -->
+                      <!-- About Column -->
                       <div class="footer-col">
-                        <h4>Company</h4>
+                        <h4>About</h4>
                         <div class="footer-menu">
-                            <a href="#">About Us</a>
-                            <a href="#">Privacy Policy</a>
-                            <a href="#">Terms of Service</a>
-                            <a href="#">Contact</a>
+                            <a href="https://github.com/asimchamp" target="_blank">Developer</a>
+                            <a href="https://github.com/asimchamp/dashboard_theme_manager" target="_blank">Open Source</a>
+                            <a href="#">Version Info: 1.0.0</a>
+                            <a href="overview_dh">Home</a>
                         </div>
                       </div>
                     </div>
                     
                     <div class="footer-bottom">
                         <div class="copyright">
-                            2025 Splunk Theme Manager. Open Source.
+                             Splunk Theme Manager build by Asim Akram. Open Source.
                         </div>
                         <div class="status-indicator">
-                            <span class="status-dot"></span> All Systems Operational
+                            <span class="status-dot"></span> All Themes Operational
                         </div>
                     </div>
                   </div>

@@ -118,75 +118,75 @@
 
                     <div class="slider-container fade-in-up">
                         <div class="slider-track" id="themeSlider">
-                            <!-- Card 1 -->
+                            <!-- Card 1: Origami Clouds -->
                             <div class="theme-card glass">
-                                <div class="theme-preview" style="background-image: linear-gradient(45deg, #FF6B6B, #556270);">
+                                <div class="theme-preview" style="background-image: url('/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_origami_clouds.png');">
                                     <div class="theme-overlay">
-                                        <div class="theme-name">Sunset Boulevard</div>
-                                        <p style="color: #cbd5e1; font-size: 0.9rem;">Warm gradients meeting cool dark interfaces.</p>
+                                        <div class="theme-name">Origami Clouds</div>
+                                        <p style="color: #cbd5e1; font-size: 0.9rem;">Tactile papercraft aesthetic with floating layered SVG clouds and soft shadows.</p>
                                         <div class="theme-tags">
-                                            <span class="theme-tag">Gradient</span>
-                                            <span class="theme-tag">Warm</span>
+                                            <span class="theme-tag">Creative</span>
+                                            <span class="theme-tag">Light</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Card 2 -->
+                            <!-- Card 2: Quantum Lattice -->
                             <div class="theme-card glass">
-                                 <div class="theme-preview" style="background-image: linear-gradient(to right bottom, #004d7a, #008793, #00bf72, #a8eb12);">
+                                <div class="theme-preview" style="background-image: url('/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_quantum_lattice.png');">
                                     <div class="theme-overlay">
-                                        <div class="theme-name">Oceanic Depth</div>
-                                        <p style="color: #cbd5e1; font-size: 0.9rem;">Deep blues and greens for data-heavy views.</p>
+                                        <div class="theme-name">Quantum Lattice</div>
+                                        <p style="color: #cbd5e1; font-size: 0.9rem;">Microscopic molecular network with embedded SVG patterns and scientific precision.</p>
                                         <div class="theme-tags">
-                                            <span class="theme-tag">Nature</span>
-                                            <span class="theme-tag">Calm</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Card 3 -->
-                            <div class="theme-card glass">
-                                 <div class="theme-preview" style="background-image: linear-gradient(to top, #200122, #6f0000);">
-                                    <div class="theme-overlay">
-                                        <div class="theme-name">Neon Cyberpunk</div>
-                                        <p style="color: #cbd5e1; font-size: 0.9rem;">High contrast neon colors on pitch black.</p>
-                                        <div class="theme-tags">
-                                            <span class="theme-tag">Cyberpunk</span>
+                                            <span class="theme-tag">Modern</span>
                                             <span class="theme-tag">Dark</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Card 4 -->
+                            <!-- Card 3: Desert Mirage -->
                             <div class="theme-card glass">
-                                 <div class="theme-preview" style="background-image: linear-gradient(to right, #24c6dc, #514a9d);">
+                                <div class="theme-preview" style="background-image: url('/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_desert_mirage.png');">
                                     <div class="theme-overlay">
-                                        <div class="theme-name">Glass Future</div>
-                                        <p style="color: #cbd5e1; font-size: 0.9rem;">Clean, frosted glass elements with soft shadows.</p>
+                                        <div class="theme-name">Desert Mirage</div>
+                                        <p style="color: #cbd5e1; font-size: 0.9rem;">Warm minimalist design with sandy beige tones and subtle heat shimmer effects.</p>
                                         <div class="theme-tags">
-                                            <span class="theme-tag">Glassmorphism</span>
-                                            <span class="theme-tag">Modern</span>
+                                            <span class="theme-tag">Professional</span>
+                                            <span class="theme-tag">Light</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Card 5 -->
+                            <!-- Card 4: Bioluminescent Deep -->
                             <div class="theme-card glass">
-                                <div class="theme-preview" style="background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);">
-                                   <div class="theme-overlay">
-                                       <div class="theme-name">Berry Blast</div>
-                                       <p style="color: #cbd5e1; font-size: 0.9rem;">Vibrant pinks and purples for high energy.</p>
-                                       <div class="theme-tags">
-                                           <span class="theme-tag">Vibrant</span>
-                                           <span class="theme-tag">Bold</span>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
+                                <div class="theme-preview" style="background-image: url('/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_bioluminescent_deep.png');">
+                                    <div class="theme-overlay">
+                                        <div class="theme-name">Bioluminescent Deep</div>
+                                        <p style="color: #cbd5e1; font-size: 0.9rem;">Deep ocean aesthetic with electric teal bioluminescent glows and organic flow.</p>
+                                        <div class="theme-tags">
+                                            <span class="theme-tag">Vibrant</span>
+                                            <span class="theme-tag">Dark</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 5: Crimson Ops -->
+                            <div class="theme-card glass">
+                                <div class="theme-preview" style="background-image: url('/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_crimson_ops.png');">
+                                    <div class="theme-overlay">
+                                        <div class="theme-name">Crimson Ops</div>
+                                        <p style="color: #cbd5e1; font-size: 0.9rem;">Tactical high-contrast dark theme with aggressive red alerts and HUD aesthetic.</p>
+                                        <div class="theme-tags">
+                                            <span class="theme-tag">Vibrant</span>
+                                            <span class="theme-tag">Dark</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="container slider-nav">
@@ -288,7 +288,7 @@
                     <div class="fade-in-up">
                         <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 3rem;">Community Love</h2>
                     </div>
-                    <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
                         <!-- Testimonial 1 -->
                         <div class="glass glass-card fade-in-up">
                             <p style="font-style: italic; color: #cbd5e1;">"Splunk Theme Manager completely transformed how our SOC team interacts with Splunk. The dark mode themes are a lifesaver for night shifts."</p>

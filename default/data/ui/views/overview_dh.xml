@@ -5,10 +5,436 @@
     <row>
         <panel>
             <html>
-                <div class="dashboard-container" id="themeManagerApp">
-                    <!-- Sidebar will be injected here by sidebar.js -->
-
+                <div class="ambient-glow">
+                  <div class="blob blob-1"></div>
+                  <div class="blob blob-2"></div>
+                  <div class="blob blob-3"></div>
                 </div>
+
+                <nav>
+                  <div class="container nav-content">
+                    <a href="#" class="logo">
+                        <span>Splunk Theme</span> Manager
+                    </a>
+                    <div class="nav-links">
+                      <a href="#features">Features</a>
+                      <a href="#how-it-works">How it Works</a>
+                      <a href="#docs">Docs</a>
+                    </div>
+                    <a href="#" class="cta-button">Get Started</a>
+                  </div>
+                </nav>
+
+                <section class="hero">
+                  <div class="container">
+                    <div class="hero-content" data-speed="0.5">
+                      <h1>Unlock the Power of <br /><span>Custom Dashboards</span></h1>
+                      <p>
+                        Splunk Theme Manager gives you granular control over your Splunk
+                        Dashboards. Apply stunning themes, manage CSS assets, and transform
+                        your data visualization experience.
+                      </p>
+                      <div class="hero-buttons">
+                        <a href="#" class="cta-button">Download Now</a>
+                        <a href="#features" class="cta-button secondary"
+                          >Explore Features</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="hero-visual" onclick="void(0)" data-speed="1.2">
+                      <div class="dashboard-preview">
+                        <!-- Abstract Dashboard Representation -->
+                        <div class="dashboard-ui-mockup">
+                          <div class="mock-sidebar glass"></div>
+                          <div class="mock-content">
+                            <div class="mock-header glass"></div>
+                            <div class="mock-grid">
+                              <div class="mock-panel glass"></div>
+                              <div class="mock-panel glass"></div>
+                              <div class="mock-panel glass"></div>
+                              <div class="mock-panel glass"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section id="features" class="container">
+                  <div class="fade-in-up">
+                    <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 1rem">
+                      Why Splunk Theme Manager?
+                    </h2>
+                    <p
+                      style="
+                        text-align: center;
+                        color: #94a3b8;
+                        max-width: 600px;
+                        margin: 0 auto;
+                      "
+                    >
+                      Build faster, look better, and manage smarter with our comprehensive
+                      toolset.
+                    </p>
+                  </div>
+
+                  <div class="features-grid">
+                    <div class="glass glass-card feature-card">
+                      <div class="feature-icon">✨</div>
+                      <h3 class="feature-title">One-Click Theming</h3>
+                      <p class="feature-desc">
+                        Apply complex CSS themes to your dashboards instantly without
+                        touching a line of code.
+                      </p>
+                    </div>
+                    <div class="glass glass-card feature-card">
+                      <div class="feature-icon">🎨</div>
+                      <h3 class="feature-title">Asset Management</h3>
+                      <p class="feature-desc">
+                        Upload, update, and manage your CSS and image assets directly from
+                        the UI.
+                      </p>
+                    </div>
+                    <div class="glass glass-card feature-card">
+                      <div class="feature-icon">⚡</div>
+                      <h3 class="feature-title">Live Preview</h3>
+                      <p class="feature-desc">
+                        See your changes in real-time before applying them to your
+                        production dashboards.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="slider-section">
+                    <div class="container fade-in-up">
+                        <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 1rem;">Explore Themes</h2>
+                        <p style="text-align: center; color: #94a3b8; max-width: 600px; margin: 0 auto 3rem;">
+                            Browse our growing collection of professionally designed themes.
+                        </p>
+                    </div>
+
+                    <div class="slider-container fade-in-up">
+                        <div class="slider-track" id="themeSlider">
+                            <!-- Card 1 -->
+                            <div class="theme-card glass">
+                                <div class="theme-preview" style="background-image: linear-gradient(45deg, #FF6B6B, #556270);">
+                                    <div class="theme-overlay">
+                                        <div class="theme-name">Sunset Boulevard</div>
+                                        <p style="color: #cbd5e1; font-size: 0.9rem;">Warm gradients meeting cool dark interfaces.</p>
+                                        <div class="theme-tags">
+                                            <span class="theme-tag">Gradient</span>
+                                            <span class="theme-tag">Warm</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="theme-card glass">
+                                 <div class="theme-preview" style="background-image: linear-gradient(to right bottom, #004d7a, #008793, #00bf72, #a8eb12);">
+                                    <div class="theme-overlay">
+                                        <div class="theme-name">Oceanic Depth</div>
+                                        <p style="color: #cbd5e1; font-size: 0.9rem;">Deep blues and greens for data-heavy views.</p>
+                                        <div class="theme-tags">
+                                            <span class="theme-tag">Nature</span>
+                                            <span class="theme-tag">Calm</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="theme-card glass">
+                                 <div class="theme-preview" style="background-image: linear-gradient(to top, #200122, #6f0000);">
+                                    <div class="theme-overlay">
+                                        <div class="theme-name">Neon Cyberpunk</div>
+                                        <p style="color: #cbd5e1; font-size: 0.9rem;">High contrast neon colors on pitch black.</p>
+                                        <div class="theme-tags">
+                                            <span class="theme-tag">Cyberpunk</span>
+                                            <span class="theme-tag">Dark</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 4 -->
+                            <div class="theme-card glass">
+                                 <div class="theme-preview" style="background-image: linear-gradient(to right, #24c6dc, #514a9d);">
+                                    <div class="theme-overlay">
+                                        <div class="theme-name">Glass Future</div>
+                                        <p style="color: #cbd5e1; font-size: 0.9rem;">Clean, frosted glass elements with soft shadows.</p>
+                                        <div class="theme-tags">
+                                            <span class="theme-tag">Glassmorphism</span>
+                                            <span class="theme-tag">Modern</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 5 -->
+                            <div class="theme-card glass">
+                                <div class="theme-preview" style="background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);">
+                                   <div class="theme-overlay">
+                                       <div class="theme-name">Berry Blast</div>
+                                       <p style="color: #cbd5e1; font-size: 0.9rem;">Vibrant pinks and purples for high energy.</p>
+                                       <div class="theme-tags">
+                                           <span class="theme-tag">Vibrant</span>
+                                           <span class="theme-tag">Bold</span>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                        
+                        <div class="container slider-nav">
+                            <button class="nav-btn" id="slideLeft" aria-label="Slide Left">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                            </button>
+                            <button class="nav-btn" id="slideRight" aria-label="Slide Right">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="how-it-works" class="container showcase">
+                  <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 4rem">
+                    How It Works
+                  </h2>
+
+                  <div class="step-container fade-in-up">
+                    <div class="step-text">
+                      <div class="step-number">01</div>
+                      <h3>Choose a Theme</h3>
+                      <p style="color: #94a3b8">
+                        Pick from our gallery of pre-built "Glassmorphic," "Dark Mode," or
+                        "Minimalist" themes, or upload your own custom CSS.
+                      </p>
+                    </div>
+                    <div class="step-visual glass glass-card">
+                      <!-- Visual placeholder -->
+                      <div
+                        style="
+                          width: 100%;
+                          height: 100%;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: rgba(255, 255, 255, 0.2);
+                        "
+                      >
+                        Dashboard Selection UI
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="step-container fade-in-up">
+                    <div class="step-text">
+                      <div class="step-number">02</div>
+                      <h3>Select Your Dashboard</h3>
+                      <p style="color: #94a3b8">
+                        Choose any standard Splunk XML dashboard from your app list. Theme
+                        Manager automatically detects compatible views.
+                      </p>
+                    </div>
+                    <div class="step-visual glass glass-card">
+                      <!-- Visual placeholder -->
+                      <div
+                        style="
+                          width: 100%;
+                          height: 100%;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: rgba(255, 255, 255, 0.2);
+                        "
+                      >
+                        Theme Gallery UI
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="step-container fade-in-up">
+                    <div class="step-text">
+                      <div class="step-number">03</div>
+                      <h3>Apply and Deploy</h3>
+                      <p style="color: #94a3b8">
+                        Hit apply and Splunk Theme Manager handles the heavy lifting—injecting CSS,
+                        updating XML, and refreshing the view.
+                      </p>
+                    </div>
+                    <div class="step-visual glass glass-card">
+                      <!-- Visual placeholder -->
+                      <div
+                        style="
+                          width: 100%;
+                          height: 100%;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: rgba(255, 255, 255, 0.2);
+                        "
+                      >
+                        Success State UI
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="container" style="margin-bottom: 6rem;">
+                    <div class="fade-in-up">
+                        <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 3rem;">Community Love</h2>
+                    </div>
+                    <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                        <!-- Testimonial 1 -->
+                        <div class="glass glass-card fade-in-up">
+                            <p style="font-style: italic; color: #cbd5e1;">"Splunk Theme Manager completely transformed how our SOC team interacts with Splunk. The dark mode themes are a lifesaver for night shifts."</p>
+                            <div class="testimonial-author">
+                                <div class="avatar"></div>
+                                <div>
+                                    <div style="font-weight: 600;">Sarah Jenkins</div>
+                                    <div style="font-size: 0.85rem; color: #94a3b8;">Senior Security Analyst</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="glass glass-card fade-in-up" style="transition-delay: 0.1s;">
+                            <p style="font-style: italic; color: #cbd5e1;">"I used to spend hours writing CSS. Now I just click 'Apply' and my dashboards look like a million bucks. Incredible tool."</p>
+                            <div class="testimonial-author">
+                                <div class="avatar" style="background: linear-gradient(135deg, #818cf8, #c084fc);"></div>
+                                <div>
+                                    <div style="font-weight: 600;">Mike Chen</div>
+                                    <div style="font-size: 0.85rem; color: #94a3b8;">DevOps Engineer</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div class="glass glass-card fade-in-up" style="transition-delay: 0.2s;">
+                            <p style="font-style: italic; color: #cbd5e1;">"The glassmorphism effect is subtle but stunning. It makes our client presentations look so much more professional."</p>
+                            <div class="testimonial-author">
+                                <div class="avatar" style="background: linear-gradient(135deg, #38bdf8, #818cf8);"></div>
+                                <div>
+                                    <div style="font-weight: 600;">Alex Rivera</div>
+                                    <div style="font-size: 0.85rem; color: #94a3b8;">Data Consultant</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="container" style="margin-bottom: 6rem;">
+                    <div class="fade-in-up">
+                        <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 3rem;">Frequently Asked Questions</h2>
+                    </div>
+                    
+                    <div class="faq-grid fade-in-up">
+                        <div class="glass glass-card faq-item">
+                            <div class="faq-question">
+                                Is Splunk Theme Manager compatible with Splunk Cloud?
+                                <div class="faq-toggle">+</div>
+                            </div>
+                            <div class="faq-answer">
+                                Yes! Splunk Theme Manager works with both Splunk Enterprise and Splunk Cloud (Classic Dashboards).
+                            </div>
+                        </div>
+
+                        <div class="glass glass-card faq-item">
+                            <div class="faq-question">
+                                Can I create my own custom themes?
+                                <div class="faq-toggle">+</div>
+                            </div>
+                            <div class="faq-answer">
+                                Absolutely. You can use our built-in CSS editor or upload your own CSS files to create fully custom themes.
+                            </div>
+                        </div>
+
+                        <div class="glass glass-card faq-item">
+                            <div class="faq-question">
+                                Does this affect dashboard performance?
+                                <div class="faq-toggle">+</div>
+                            </div>
+                            <div class="faq-answer">
+                                Negligible impact. We use lightweight CSS injection which is handled natively by the browser's rendering engine.
+                            </div>
+                        </div>
+                        
+                        <div class="glass glass-card faq-item">
+                            <div class="faq-question">
+                                Is it free to use?
+                                <div class="faq-toggle">+</div>
+                            </div>
+                            <div class="faq-answer">
+                                Splunk Theme Manager is open-source and free for the community. Enterprise support options are available.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <footer>
+                  <div class="container">
+                    <div class="footer-grid">
+                      <!-- Brand Column -->
+                      <div class="footer-col brand-col">
+                        <a href="#" class="footer-logo"><span>Splunk Theme</span> Manager</a>
+                        <p class="footer-tagline">
+                          Elevating Splunk dashboards to the next level with modern design principles.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" aria-label="Github"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                            <a href="#" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                            <a href="#" aria-label="Splunkbase"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 20 19 12 7 4"></polyline></svg></a>
+                        </div>
+                      </div>
+
+                      <!-- Product Column -->
+                      <div class="footer-col">
+                        <h4>Product</h4>
+                        <div class="footer-menu">
+                            <a href="#features">Features</a>
+                            <a href="#">Templates</a>
+                            <a href="#how-it-works">Showcase</a>
+                            <a href="#">Changelog</a>
+                        </div>
+                      </div>
+
+                      <!-- Resources Column -->
+                      <div class="footer-col">
+                        <h4>Resources</h4>
+                        <div class="footer-menu">
+                            <a href="#docs">Documentation</a>
+                            <a href="#">API Reference</a>
+                            <a href="#">Community Hub</a>
+                            <a href="#">Blog</a>
+                        </div>
+                      </div>
+
+                      <!-- Legal Column -->
+                      <div class="footer-col">
+                        <h4>Company</h4>
+                        <div class="footer-menu">
+                            <a href="#">About Us</a>
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms of Service</a>
+                            <a href="#">Contact</a>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="footer-bottom">
+                        <div class="copyright">
+                            2025 Splunk Theme Manager. Open Source.
+                        </div>
+                        <div class="status-indicator">
+                            <span class="status-dot"></span> All Systems Operational
+                        </div>
+                    </div>
+                  </div>
+                </footer>
             </html>
         </panel>
     </row>

@@ -1,0 +1,243 @@
+/* Import Semantic UI Icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css');
+
+/* Modern Dashboard Theme Variables */
+:root {
+  --tm-background: 0 0% 100%;
+  --tm-foreground: 240 10% 3.9%;
+  --tm-card: 0 0% 100%;
+  --tm-card-foreground: 240 10% 3.9%;
+  --tm-popover: 0 0% 100%;
+  --tm-popover-foreground: 240 10% 3.9%;
+  --tm-primary: 240 5.9% 10%;
+  --tm-primary-foreground: 0 0% 98%;
+  --tm-secondary: 240 4.8% 95.9%;
+  --tm-secondary-foreground: 240 5.9% 10%;
+  --tm-muted: 240 4.8% 95.9%;
+  --tm-muted-foreground: 240 3.8% 46.1%;
+  --tm-accent: 240 4.8% 95.9%;
+  --tm-accent-foreground: 240 5.9% 10%;
+  --tm-border: 240 5.9% 90%;
+  --tm-radius: 0.5rem;
+}
+
+/* Dark Mode Overrides */
+body[data-theme="dark"] {
+  --tm-background: 240 10% 3.9%;
+  --tm-foreground: 0 0% 98%;
+  --tm-card: 240 10% 3.9%;
+  --tm-card-foreground: 0 0% 98%;
+  --tm-popover: 240 10% 3.9%;
+  --tm-popover-foreground: 0 0% 98%;
+  --tm-primary: 0 0% 98%;
+  --tm-primary-foreground: 240 5.9% 10%;
+  --tm-secondary: 240 3.7% 15.9%;
+  --tm-secondary-foreground: 0 0% 98%;
+  --tm-muted: 240 3.7% 15.9%;
+  --tm-muted-foreground: 240 5% 64.9%;
+  --tm-accent: 240 3.7% 15.9%;
+  --tm-accent-foreground: 0 0% 98%;
+  --tm-border: 240 3.7% 15.9%;
+}
+
+/* CRITICAL: Container that holds sidebar + main content */
+#themeManagerApp,
+.dashboard-container {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Sidebar - Uses STICKY positioning to stay in document flow */
+.tm-sidebar {
+    position: sticky;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 260px;
+    min-width: 260px;
+    background: hsl(var(--tm-card));
+    border-right: 1px solid hsl(var(--tm-border));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+}
+
+/* Collapsed state */
+.tm-sidebar.collapsed {
+    width: 70px;
+    min-width: 70px;
+}
+
+/* Main content area - flexes to fill remaining space */
+.tm-main-content {
+    flex: 1;
+    min-width: 0; /* Allow shrinking */
+    padding: 2rem;
+    background: hsl(var(--tm-background));
+}
+
+/* Toggle Button */
+.tm-sidebar-toggle {
+    position: absolute;
+    top: 1.5rem;
+    right: -12px;
+    width: 24px;
+    height: 24px;
+    background-color: hsl(var(--tm-card));
+    border: 1px solid hsl(var(--tm-border));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: hsl(var(--tm-muted-foreground));
+    z-index: 10;
+    transition: all 0.2s;
+}
+
+.tm-sidebar-toggle:hover {
+    color: hsl(var(--tm-foreground));
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.tm-sidebar.collapsed .tm-sidebar-toggle i {
+    transform: rotate(180deg);
+}
+
+/* Header */
+.tm-sidebar-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: hsl(var(--tm-foreground));
+    margin-bottom: 2rem;
+    padding-left: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.2s;
+}
+
+.tm-sidebar.collapsed .tm-sidebar-title {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Navigation List */
+.tm-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tm-nav-btn {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0.75rem;
+    border-radius: var(--tm-radius);
+    color: hsl(var(--tm-muted-foreground));
+    text-decoration: none !important;
+    transition: all 0.2s;
+    font-weight: 500;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    border-left: 3px solid transparent;
+}
+
+.tm-nav-btn:hover {
+    background-color: hsl(var(--tm-accent));
+    color: hsl(var(--tm-accent-foreground));
+    border-left-color: hsl(var(--tm-primary));
+}
+
+.tm-nav-btn.active {
+    background-color: hsl(var(--tm-primary));
+    color: hsl(var(--tm-primary-foreground));
+    border-left-color: hsl(var(--tm-primary));
+}
+
+.tm-nav-btn svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+}
+
+.tm-sidebar.collapsed .tm-nav-btn {
+    justify-content: center;
+    padding: 0.75rem 0;
+}
+
+.tm-sidebar.collapsed .tm-nav-btn span {
+    display: none;
+}
+
+.tm-sidebar.collapsed .tm-nav-btn svg {
+    margin-right: 0;
+}
+
+/* Footer & Dark Mode Toggle */
+.tm-sidebar-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    border-top: 1px solid hsl(var(--tm-border));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tm-theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--tm-radius);
+    background: hsl(var(--tm-accent));
+    border: 1px solid hsl(var(--tm-border));
+    color: hsl(var(--tm-foreground));
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tm-theme-toggle:hover {
+    background: hsl(var(--tm-primary));
+    color: hsl(var(--tm-primary-foreground));
+    transform: scale(1.05);
+}
+
+.tm-theme-toggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Hide Splunk's default header */
+.dashboard-header,
+header.splunk-header {
+    display: none !important;
+}
+
+/* Reset any unwanted Splunk margins */
+.main-section-body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.dashboard-body {
+    margin: 0 !important;
+    padding: 0 !important;
+}

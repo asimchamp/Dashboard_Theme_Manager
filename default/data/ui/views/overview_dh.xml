@@ -1,0 +1,15 @@
+<dashboard version="1.1" isDashboard="false" hideEdit="true" hideAppBar="true" script="js/overview/overview.js,js/common/hide_header.js" stylesheet="css/overview/overview.css,css/common/hide_header.css" theme="dark">
+    <label>Theme Manager</label>
+    <description>Manage and apply themes to your Splunk dashboards</description>
+    
+    <row>
+        <panel>
+            <html>
+                <div class="dashboard-container" id="themeManagerApp">
+                    <!-- Sidebar will be injected here by sidebar.js -->
+
+                </div>
+            </html>
+        </panel>
+    </row>
+</dashboard>

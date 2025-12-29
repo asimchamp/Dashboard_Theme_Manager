@@ -1,0 +1,448 @@
+{
+  "themes": [
+    {
+      "id": "dhm_dashboard_glassmorphism",
+      "name": "Crystal Clarity",
+      "description": "Premium glassmorphism with frosted effects and vibrant purple accents",
+      "mode": "Dark",
+      "category": "Modern",
+      "order": 1,
+      "featured": true,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_glassmorphism.png",
+      "features": [
+        "Modern frosted glass effect with backdrop blur",
+        "Subtle transparency for elegant depth perception",
+        "Clean and minimal design aesthetic",
+        "Perfect for data-heavy executive dashboards",
+        "Excellent readability in all lighting conditions"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_cyber",
+      "name": "Neon Pulse",
+      "description": "Cyberpunk neon aesthetics with electric cyan and magenta tones",
+      "mode": "Dark",
+      "category": "Vibrant",
+      "order": 2,
+      "featured": true,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_cyber.png",
+      "features": [
+        "Futuristic neon cyan accents and elements",
+        "Dark background for reduced eye strain",
+        "High contrast colors for better visibility",
+        "Cyberpunk-inspired design language",
+        "Ideal for monitoring and operations centers"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_slate",
+      "name": "Violet Dreams (Remastered)",
+      "description": "Mystical purple gradients with a dream-like atmosphere and deep blur effects",
+      "mode": "Dark",
+      "category": "Creative",
+      "order": 3,
+      "featured": false,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_purple.png",
+      "features": [
+        "Updated: Custom 'Galaxy Spiral' SVG Background",
+        "New: 'Dream UI' with heavy blur and glow",
+        "Translucent gradients and ethereal typography",
+        "Enterprise-grade print & accessibility support"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_blue",
+      "name": "Ocean Breeze",
+      "description": "Fresh light theme with calming blue and aqua ocean-inspired palette",
+      "mode": "Light",
+      "category": "Professional",
+      "order": 4,
+      "featured": true,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_blue.png",
+      "features": [
+        "Calm and refreshing color palette",
+        "Promotes focus and sustained productivity",
+        "Trustworthy professional appearance",
+        "Easy on the eyes for extended viewing",
+        "Great for analytics and data reporting"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_green",
+      "name": "Midnight Steel",
+      "description": "Professional dark slate with subtle blue accents and clean lines",
+      "mode": "Dark",
+      "category": "Professional",
+      "order": 5,
+      "featured": true,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_slate.png",
+      "features": [
+        "Professional dark granite aesthetic",
+        "Sleek metal accents and refined borders",
+        "Sophisticated corporate design identity",
+        "Reduced eye fatigue with dark tones",
+        "Perfect for executive dashboards and reports"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_purple",
+      "name": "Mega Bold (Remastered)",
+      "description": "High-impact, large typography theme for wall monitors and executive summaries",
+      "mode": "Dark",
+      "category": "Presentation",
+      "order": 6,
+      "featured": false,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_mega.png",
+      "features": [
+        "Updated: Custom 'Impact Chevrons' SVG Background",
+        "New: 'Loud UI' with thick borders and blocky inputs",
+        "Maximized typography for distance viewing",
+        "Enterprise-grade print & accessibility support"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_cyber_slate",
+      "name": "Midnight Aurora (Remastered)",
+      "description": "Deep night sky aesthetic with shimmering aurora borealis effects",
+      "mode": "Dark",
+      "category": "Nature",
+      "order": 7,
+      "featured": false,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_midnight_aurora.png",
+      "features": [
+        "Updated: Custom 'Aurora Waves' SVG Background",
+        "New: 'Night Sky UI' with shimmering hover effects",
+        "Deep blue gradients and starlight accents",
+        "Enterprise-grade print & accessibility support"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_mega",
+      "name": "Nebula Blue (Remastered)",
+      "description": "Deep space cosmic theme with bright star accents and orbital feels",
+      "mode": "Dark",
+      "category": "Space",
+      "order": 8,
+      "featured": false,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_nebula_blue.png",
+      "features": [
+        "Updated: Custom 'Star Field' SVG Background",
+        "New: 'Deep Space UI' with orbital inputs",
+        "Futuristic buttons and holographic modals",
+        "Enterprise-grade print & accessibility support"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_midnight_aurora",
+      "name": "Cyber Slate (Remastered)",
+      "description": "A hybrid industrial-tech theme with machined edges and cyber accents",
+      "mode": "Dark",
+      "category": "Hybrid",
+      "order": 10,
+      "featured": false,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_cyber_slate.png",
+      "features": [
+        "Updated: Custom 'Circuit Traces' SVG Background",
+        "New: 'Tech-Industrial' styling with chamfered edges",
+        "Slate color palette with neon cyber accents",
+        "Enterprise-grade print & accessibility support"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_nebula_blue",
+      "name": "Emerald Forest (Remastered)",
+      "description": "Nature-inspired refreshing green aesthetics with organic shapes and new SVG backgrounds",
+      "mode": "Light",
+      "category": "Nature",
+      "order": 11,
+      "featured": false,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_green.png",
+      "features": [
+        "Updated: Custom 'Fern Patterns' SVG Background",
+        "New: >800 lines of 'Nature UI' Styling",
+        "Soft rounded corners and organic toggles",
+        "Enterprise-grade print & accessibility support"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_solar_flare",
+      "name": "Solar Flare",
+      "description": "Energetic warm theme with sunset-inspired orange and gold tones",
+      "mode": "Light",
+      "category": "Vibrant",
+      "order": 12,
+      "featured": false,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_solar_flare.png",
+      "features": [
+        "Warm golden and orange energy",
+        "Vibrant sun-inspired color scheme",
+        "Energetic and uplifting atmosphere",
+        "High visibility for critical metrics",
+        "Perfect for performance tracking"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_ink_paper",
+      "name": "Ink and Paper",
+      "description": "Brutalist monochrome design with stark black and white minimalism",
+      "mode": "Dark",
+      "category": "Professional",
+      "order": 13,
+      "featured": false,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_ink_paper.png",
+      "features": [
+        "Classic black and white minimalism",
+        "High contrast for maximum readability",
+        "Timeless and elegant design",
+        "Professional newspaper aesthetic",
+        "Excellent for reports and documentation"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_retro_terminal",
+      "name": "Retro Terminal",
+      "description": "Classic 1980s terminal with neon green text and CRT monitor aesthetic",
+      "mode": "Dark",
+      "category": "Professional",
+      "order": 14,
+      "featured": false,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_retro_terminal.png",
+      "features": [
+        "Nostalgic command-line terminal aesthetic",
+        "Monospace font with green phosphor glow",
+        "Authentic retro computing experience",
+        "Perfect for DevOps and system monitoring",
+        "Unique hacker-inspired visual identity"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_sakura_blossom",
+      "name": "Sakura Blossom",
+      "description": "Delicate Japanese-inspired theme with soft pink cherry blossom tones",
+      "mode": "Light",
+      "category": "Vibrant",
+      "order": 15,
+      "featured": false,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_sakura_blossom.png",
+      "features": [
+        "Delicate pink cherry blossom tones",
+        "Soft and calming color palette",
+        "Japanese-inspired minimalist design",
+        "Peaceful and serene atmosphere",
+        "Perfect for wellness and lifestyle dashboards"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_arctic_frost",
+      "name": "Arctic Frost",
+      "description": "Crystalline ice-inspired theme with cool blues and glossy surfaces",
+      "mode": "Light",
+      "category": "Professional",
+      "order": 16,
+      "featured": false,
+      "editor": 0,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_arctic_frost.png",
+      "features": [
+        "Cool icy blue and white tones",
+        "Clean and pristine visual aesthetic",
+        "Professional winter-inspired theme",
+        "Crisp and refreshing appearance",
+        "Ideal for clear data presentation"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_copper_oxide",
+      "name": "Copper Oxide",
+      "description": "Industrial steampunk design with aged copper and bronze metallic tones",
+      "mode": "Dark",
+      "category": "Professional",
+      "order": 17,
+      "featured": false,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_copper_oxide.png",
+      "features": [
+        "Warm industrial copper and rust tones",
+        "Unique metallic aesthetic",
+        "Professional with artistic flair",
+        "Vintage industrial design appeal",
+        "Perfect for manufacturing and engineering"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_crimson_ops",
+      "name": "Crimson Ops",
+      "description": "Tactical high-contrast dark theme with aggressive red alerts and HUD aesthetic",
+      "mode": "Dark",
+      "category": "Vibrant",
+      "order": 18,
+      "featured": true,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_crimson_ops.png",
+      "features": [
+        "Tactical HUD with chamfered edges",
+        "Military-grade visual hierarchy",
+        "High-contrast red and black scheme",
+        "Scanline effects for authenticity",
+        "Perfect for security and operations centers"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_bioluminescent_deep",
+      "name": "Bioluminescent Deep",
+      "description": "Deep ocean aesthetic with electric teal bioluminescent glows and organic flow",
+      "mode": "Dark",
+      "category": "Vibrant",
+      "order": 19,
+      "featured": true,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_bioluminescent_deep.png",
+      "features": [
+        "Underwater bioluminescent organism aesthetic",
+        "Electric teal and cyan glowing accents",
+        "Soft pulsing glow animations",
+        "Organic ultra-rounded shapes",
+        "Perfect for creative and innovative teams"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_desert_mirage",
+      "name": "Desert Mirage",
+      "description": "Warm minimalist design with sandy beige tones and subtle heat shimmer effects",
+      "mode": "Light",
+      "category": "Professional",
+      "order": 20,
+      "featured": true,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_desert_mirage.png",
+      "features": [
+        "Warm sandy beige and terracotta palette",
+        "Clean minimalist desert aesthetic",
+        "Subtle heat shimmer hover effects",
+        "Professional yet inviting design",
+        "Ideal for warm, approachable dashboards"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_quantum_lattice",
+      "name": "Quantum Lattice",
+      "description": "Microscopic molecular network with embedded SVG patterns and scientific precision",
+      "mode": "Dark",
+      "category": "Modern",
+      "order": 21,
+      "featured": true,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_quantum_lattice.png",
+      "features": [
+        "Embedded SVG molecular network background",
+        "Deep void aesthetic with neon accents",
+        "Scientific and mathematical precision",
+        "High-tech glitch and scan animations",
+        "Perfect for advanced research labs"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_origami_clouds",
+      "name": "Origami Clouds",
+      "description": "Tactile papercraft aesthetic with floating layered SVG clouds and soft shadows",
+      "mode": "Light",
+      "category": "Creative",
+      "order": 22,
+      "featured": true,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_origami_clouds.png",
+      "features": [
+        "Tactile SVG paper art background",
+        "Soft floating layered shadows",
+        "Whimsical sky and sun palette",
+        "Physical paper-like motion effects",
+        "Ideal for creative and friendly interfaces"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_holographic_prism",
+      "name": "Holographic Prism",
+      "description": "Futuristic void interface with dispersed light, chromatic aberration, and glitch effects",
+      "mode": "Dark",
+      "category": "Modern",
+      "order": 23,
+      "featured": true,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_holographic_prism.png",
+      "features": [
+        "Chromatic aberration (RGB split) borders",
+        "Dispersed light prism background",
+        "Holographic interface elements",
+        "Glitch motion effects on hover",
+        "Deep void aesthetic for high contrast"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_ceramic_flow",
+      "name": "Ceramic Flow",
+      "description": "Tactile claymorphism with soft extruded shapes and deep volumetric shadows",
+      "mode": "Light",
+      "category": "Creative",
+      "order": 24,
+      "featured": true,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_ceramic_flow.png",
+      "features": [
+        "Soft extruded claymorphism",
+        "Deep volumetric double-shadows",
+        "Extreme organic rounded corners",
+        "Pastoral and soothing color palette",
+        "Tactile 3D interface feel"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_liquid_chrome",
+      "name": "Liquid Chrome",
+      "description": "Molten metal aesthetic with high-contrast reflective surfaces and viscous animations",
+      "mode": "Dark",
+      "category": "Modern",
+      "order": 25,
+      "featured": true,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_liquid_chrome.png",
+      "features": [
+        "Monochromatic metallic palette (Silver/Black)",
+        "Viscous liquid motion effects",
+        "High-contrast reflective surfaces",
+        "Molten metal SVG background",
+        "Futuristic chrome aesthetic"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_topographic_map",
+      "name": "Topographic Map",
+      "description": "Geo-technical surveyor aesthetic with precision contour lines and technical data",
+      "mode": "Light",
+      "category": "Technical",
+      "order": 26,
+      "featured": true,
+      "editor": 1,
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_topographic_map.png",
+      "features": [
+        "Precision topographic contour lines",
+        "Technical surveyor aesthetic",
+        "Safety Orange and Teal data markers",
+        "Monospace technical typography",
+        "Scientific instrument feel"
+      ]
+    }
+  ]
+}

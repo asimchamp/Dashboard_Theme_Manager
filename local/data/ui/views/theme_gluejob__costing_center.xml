@@ -1,0 +1,406 @@
+<form version="1.1" theme="light">
+  <label>Asim Akram</label>
+  <description>Provides cost transparency and operational visibility into AWS Glue job executions.</description>
+  <search id="base_logic">
+    <query>
+index="$indx_tok$" 
+| rename "JobRun.JobRunState" as Job_Status, "JobRun.Id" as Job_Run_ID, "JobRun.StartedOn" as Start_Time, "JobRun.CompletedOn" as End_Time, "JobRun.ExecutionTime" as Run_Time, "JobConfig.JobId" as Job_ID, "JobRun.AllocatedCapacity" as Capacity, "JobRun.ExecutionTime" as Run_Time, "DpuHours" as Dpu_Hours, "JobRun.ErrorMessage" as Error, "JobRun.Arguments.DomainId" as DomainId, "JobRun.Arguments.TenantId" as TenantId, "JobRun.JobName" as JobName, "JobRun.WorkerType" as WorkerType, "JobRun.GlueVersion" as GlueVersion, "JobRun.Timeout" as Timeout, "JobRun.Arguments.DeltatableSupport" as DeltatableSupport, "EnvConfig.GlueJobName" as Job_Name, "JobRun.NumberOfWorkers" as NumberOfWorkers, "JobRun.Arguments.RerunFlag" as RerunFlag
+| fillnull value="null" Job_Name
+| search DomainId="$domain$" TenantId="$tenant$"
+| stats count values(Start_Time) as Start_Time values(End_Time) as End_Time latest(Run_Time) as Run_Time latest(Job_Status) as Job_Status values(Error) as Error values(JobName) as JobName values(Job_ID) as Job_ID values(Dpu_Hours) as Dpu_Hours values(WorkerType) as WorkerType values(GlueVersion) as GlueVersion values(Timeout) as Timeout values(DeltatableSupport) as DeltatableSupport values(NumberOfWorkers) as NumberOfWorkers values(DomainId) as DomainId values(TenantId) as TenantId values(RerunFlag) as RerunFlag by Job_Run_ID
+| eval Flow_Type=if(DeltatableSupport=="Y","Iceberg","Glue")
+| eval cost_per=case(
+    WorkerType=="Standard",0.44,
+    WorkerType=="G.025X",0.11,
+    WorkerType=="G.12X",0.528,
+    WorkerType=="G.16X",0.704,
+    WorkerType=="G.1X",0.44,
+    WorkerType=="G.2X",0.88,  
+    WorkerType=="G.4X",1.76,
+    WorkerType=="G.8X",3.52,
+    WorkerType=="R.1X",0.44,
+    WorkerType=="R.2X",0.88,
+    WorkerType=="R.4X",1.76,
+    WorkerType=="R.8X",3.52,
+    WorkerType=="Z.2X",1.10,
+    true(),0
+)
+| eval Job_Cost=round((Run_Time/3600) * NumberOfWorkers * cost_per, 4)
+| sort - Start_Time
+    </query>
+    <earliest>$time.earliest$</earliest>
+    <latest>$time.latest$</latest>
+    <sampleRatio>1</sampleRatio>
+  </search>
+  <search id="base_timechart">
+    <query>
+index="$indx_tok$" 
+| rename "JobRun.JobRunState" as Job_Status, "JobRun.Id" as Job_Run_ID, "JobRun.StartedOn" as Start_Time, "JobRun.CompletedOn" as End_Time, "JobRun.ExecutionTime" as Run_Time, "JobConfig.JobId" as Job_ID, "JobRun.AllocatedCapacity" as Capacity, "JobRun.ExecutionTime" as Run_Time, "DpuHours" as Dpu_Hours, "JobRun.ErrorMessage" as Error, "JobRun.Arguments.DomainId" as DomainId, "JobRun.Arguments.TenantId" as TenantId, "JobRun.JobName" as JobName, "JobRun.WorkerType" as WorkerType, "JobRun.GlueVersion" as GlueVersion, "JobRun.Timeout" as Timeout, "JobRun.Arguments.DeltatableSupport" as DeltatableSupport, "EnvConfig.GlueJobName" as Job_Name, "JobRun.NumberOfWorkers" as NumberOfWorkers, "JobRun.Arguments.RerunFlag" as RerunFlag
+| fillnull value="null" Job_Name
+| search DomainId="$domain$" TenantId="$tenant$"
+| eval Flow_Type=if(DeltatableSupport=="Y","Iceberg","Glue")
+| eval cost_per=case(
+    WorkerType=="Standard",0.44,
+    WorkerType=="G.025X",0.11,
+    WorkerType=="G.12X",0.528,
+    WorkerType=="G.16X",0.704,
+    WorkerType=="G.1X",0.44,
+    WorkerType=="G.2X",0.88,
+    WorkerType=="G.4X",1.76,
+    WorkerType=="G.8X",3.52,
+    WorkerType=="R.1X",0.44,
+    WorkerType=="R.2X",0.88,
+    WorkerType=="R.4X",1.76,
+    WorkerType=="R.8X",3.52,
+    WorkerType=="Z.2X",1.10,
+    true(),0
+)
+| eval Job_Cost=round((Run_Time/3600) * NumberOfWorkers * cost_per, 4)
+| sort - Start_Time
+    </query>
+    <earliest>$time.earliest$</earliest>
+    <latest>$time.latest$</latest>
+    <sampleRatio>1</sampleRatio>
+  </search>
+  <fieldset submitButton="false">
+    <input type="time" token="time">
+      <label>Time Range</label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="indx_tok">
+      <label>Environment</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <fieldForLabel>index</fieldForLabel>
+      <fieldForValue>index</fieldForValue>
+      <search>
+        <query>| tstats count WHERE index=cloudwatch by index | table index*</query>
+        <earliest>$time.earliest$</earliest>
+        <latest>$time.latest$</latest>
+      </search>
+    </input>
+    <input type="dropdown" token="domain">
+      <label>Domain</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <fieldForLabel>DomainId</fieldForLabel>
+      <fieldForValue>DomainId</fieldForValue>
+      <search>
+        <query>index="$indx_tok$" | stats count by "JobRun.Arguments.DomainId" | rename "JobRun.Arguments.DomainId" as DomainId | table DomainId</query>
+        <earliest>$time.earliest$</earliest>
+        <latest>$time.latest$</latest>
+      </search>
+    </input>
+    <input type="dropdown" token="tenant">
+      <label>Tenant</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <fieldForLabel>TenantId</fieldForLabel>
+      <fieldForValue>TenantId</fieldForValue>
+      <search>
+        <query>index="$indx_tok$" | stats count by "JobRun.Arguments.TenantId" | rename "JobRun.Arguments.TenantId" as TenantId | table TenantId</query>
+        <earliest>$time.earliest$</earliest>
+        <latest>$time.latest$</latest>
+      </search>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Total Glue Job Runs</title>
+      <single>
+        <search base="base_logic">
+          <query>| stats count</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Total Cost</title>
+      <single>
+        <search base="base_logic">
+          <query>| stats sum(Job_Cost)</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="unit">$</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Avg Cost per Job</title>
+      <single>
+        <search base="base_logic">
+          <query>| stats avg(Job_Cost)</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="unit">$</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Total DPU Hours</title>
+      <single>
+        <search base="base_logic">
+          <query>| stats sum(Dpu_Hours)</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Wasted Cost (Failed Jobs)</title>
+      <single>
+        <search base="base_logic">
+          <query>| search Job_Status!="SUCCEEDED" | stats sum(Job_Cost)</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="unit">$</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Failed Jobs Count</title>
+      <single>
+        <search base="base_logic">
+          <query>| search Job_Status!="SUCCEEDED" | stats count</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>GlueJob Cost Trendline</title>
+      <chart>
+        <search base="base_timechart">
+          <query>| timechart sum(Job_Cost) as "Cost ($)"</query>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.nullValueMode">zero</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Domain Cost Heatmap (Cost Matrix)</title>
+      <table>
+        <search base="base_logic">
+          <query>
+            | chart sum(Job_Cost) over DomainId by TenantId
+            | addtotals
+            | sort - Total
+          </query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">heatmap</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Job Cost Over Time (Split by Flow Type)</title>
+      <chart>
+        <search base="base_timechart">
+          <query>| timechart sum(Job_Cost) as "Cost ($)" by Flow_Type</query>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.nullValueMode">zero</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Cost Trend Forecast (Next 30 Days)</title>
+      <chart>
+        <search base="base_timechart">
+          <query>| timechart span=1d sum(Job_Cost) as DailyCost 
+            | predict DailyCost future_timespan=30
+            | rename prediction(DailyCost) as "Predicted Cost ($)"</query>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.nullValueMode">zero</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Cost Anomaly Detection (Daily Spikes &gt; 1.5x Avg)</title>
+      <chart>
+        <search base="base_timechart">
+          <query>| bin _time span=1d 
+            | stats sum(Job_Cost) as DailyCost by _time 
+            | streamstats window=7 avg(DailyCost) as AvgCost 
+            | eval Anomaly=if(DailyCost &gt; AvgCost * 1.5, DailyCost, null()) 
+            | timechart span=1d sum(DailyCost) as "Cost ($)", sum(Anomaly) as "Cost Spike"</query>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.overlayFields">"Cost Spike"</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Domain Cost Breakdown</title>
+      <chart>
+        <search base="base_logic">
+          <query>| stats sum(Job_Cost) by DomainId</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Tenant Cost Breakdown</title>
+      <chart>
+        <search base="base_logic">
+          <query>| stats sum(Job_Cost) by TenantId</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Top 10 Costly Glue Jobs</title>
+      <chart>
+        <search base="base_logic">
+          <query>| stats sum(Job_Cost) as "Total Cost ($)" by JobName | sort - "Total Cost ($)" | head 10</query>
+        </search>
+        <option name="charting.chart">bar</option>
+        <option name="charting.drilldown">all</option>
+        <drilldown>
+          <set token="form.job_filter">$click.value$</set>
+        </drilldown>
+      </chart>
+    </panel>
+    <panel>
+      <title>Iceberg vs Glue Cost Comparison</title>
+      <chart>
+        <search base="base_logic">
+          <query>| stats sum(Job_Cost) as TotalCost by Flow_Type</query>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">none</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Cost by Worker Configuration (Type vs Count)</title>
+      <chart>
+        <search base="base_logic">
+          <query>| chart sum(Job_Cost) as "Cost ($)" over WorkerType by NumberOfWorkers</query>
+        </search>
+        <option name="charting.chart">bar</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Job Frequency vs Cost (Bubble Chart)</title>
+      <chart>
+        <search base="base_logic">
+          <query>
+            | stats count as "Execution Count" avg(Job_Cost) as "Avg Cost ($)" sum(Job_Cost) as "Total Cost" by JobName
+          </query>
+        </search>
+        <option name="charting.chart">bubble</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Long-Running Job Analysis (Runtime Percentiles)</title>
+      <chart>
+        <search base="base_logic">
+          <query>
+            | stats p25(Run_Time) as p25 p50(Run_Time) as p50 p75(Run_Time) as p75 by JobName 
+            | sort - p75 | head 20
+          </query>
+        </search>
+        <option name="charting.chart">bar</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Rerun Cost Impact</title>
+      <chart>
+        <search base="base_logic">
+          <query>| stats sum(Job_Cost) by RerunFlag | eval RerunFlag="Rerun: ".RerunFlag</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Failures by Domain</title>
+      <chart>
+        <search base="base_logic">
+          <query>| search Job_Status!="SUCCEEDED" | stats count by DomainId</query>
+        </search>
+        <option name="charting.chart">bar</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Failed Job Cost Wastage (Detail)</title>
+      <table>
+        <search base="base_logic">
+          <query>
+            | search Job_Status!="SUCCEEDED"
+            | table Job_Run_ID JobName Job_Status Error Job_Cost
+            | sort - Job_Cost
+          </query>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">none</option>
+        <format type="color" field="Job_Cost">
+          <colorPalette type="minMidMax" maxColor="#DC4E41" minColor="#FFFFFF"></colorPalette>
+          <scale type="minMidMax"></scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Detailed Job Breakdown</title>
+      <table>
+        <search base="base_logic">
+          <query>| table Job_Run_ID Job_ID Start_Time End_Time Run_Time Dpu_Hours WorkerType NumberOfWorkers GlueVersion Timeout Flow_Type Job_Status Job_Cost Error</query>
+        </search>
+        <option name="count">20</option>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <condition field="Job_ID">
+            <link target="_blank">search?q=index="cloudwatch*" "$row.Job_ID$"&amp;earliest=$earliest$&amp;latest=$latest$</link>
+          </condition>
+        </drilldown>
+        <format type="color" field="Job_Status">
+          <colorPalette type="map">{"SUCCEEDED":#53A051,"FAILED":#DC4E41,"TIMEOUT":#F8BE34,"STOPPED":#F1813F}</colorPalette>
+        </format>
+        <format type="color" field="Job_Cost">
+          <colorPalette type="minMidMax" maxColor="#D93F3C" minColor="#FFFFFF"></colorPalette>
+          <scale type="minMidMax"></scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+<row><panel ref="dhm_dashboard_origami_clouds" app="dashboard_theme_manager" depends="$alwaysHideCSS$"></panel></row></form>

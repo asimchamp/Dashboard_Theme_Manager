@@ -38,6 +38,11 @@ html,
   line-height: 1.6;
 }
 
+/* Remove padding-top from dashboard body to align properly with Splunk header */
+.dashboard-body {
+  padding-top: 0 !important;
+}
+
 /* Ensure Splunk's default white backgrounds are overridden */
 .dashboard-row,
 .dashboard-cell,
@@ -59,7 +64,7 @@ h6 {
 /* Ambient Background */
 .ambient-glow {
   position: fixed;
-  top: 0;
+  top: 30px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -149,19 +154,23 @@ section {
 /* Navbar */
 nav {
   position: fixed;
-  top: 0;
+  top: 30px; /* Position below Splunk's header bar */
   left: 0;
   width: 100%;
-  z-index: 200;
+  z-index: 100;
   padding: 1.5rem 0;
   transition: all var(--transition-speed);
+  background: rgba(15, 23, 42, 0.31);
+  border-radius: 0 0 30px 30px;
 }
 
 nav.scrolled {
   background: rgba(15, 23, 42, 0.8);
+  top: 0;
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--glass-border);
   padding: 1rem 0;
+  border-radius: 0 0 50px 50px;
 }
 
 .nav-content {
@@ -245,12 +254,12 @@ nav.scrolled {
 
 /* Hero */
 .hero {
-  min-height: 100vh;
+  min-height: calc(100vh - 50px); /* Subtract Splunk header height */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding-top: 80px; /* offset for nav */
+  padding-top: 130px; /* offset for Splunk header (50px) + custom nav (80px) */
   position: relative;
   z-index: 10;
 }
@@ -350,7 +359,7 @@ nav.scrolled {
 /* Features */
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   margin-top: 3rem;
 }

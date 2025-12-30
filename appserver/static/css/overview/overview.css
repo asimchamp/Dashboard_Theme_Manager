@@ -1106,6 +1106,47 @@ html.lenis {
   }
 }
 
+/* Transformation Image Enlargement */
+.transformation-image-container {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.transformation-image-container:hover {
+  transform: translateY(-4px);
+}
+
+.transformation-image-container .transformation-image {
+  cursor: pointer;
+  user-select: none;
+}
+
+.transformation-image-container .transformation-image.enlarged {
+  cursor: zoom-out;
+  position: fixed !important;
+  z-index: 10000 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  overflow: visible !important;
+}
+
+/* Ensure parent containers don't clip enlarged images */
+.transformation-image-container {
+  overflow: visible !important;
+}
+
+section#transformation {
+  overflow: visible !important;
+}
+
+.transformation-backdrop {
+  cursor: zoom-out;
+  pointer-events: auto !important;
+  z-index: 9998 !important;
+}
+
 /* Responsive - Hide on mobile/tablet */
 @media (max-width: 1024px) {
   .timeline-sidebar {

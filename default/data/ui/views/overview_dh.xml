@@ -616,8 +616,9 @@
                             <div style="text-align: center; margin-bottom: 1rem;">
                                 <span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 0.5rem 1rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem;">❌ Before</span>
                             </div>
-                            <div class="glass glass-card" style="padding: 1.5rem; background: rgba(255, 255, 255, 0.95); overflow: hidden;">
-                                <img src="/static/app/dashboard_theme_manager/images/app/transformation_before.png" alt="Default Splunk Dashboard - Before" style="width: 100%; height: auto; border-radius: 8px; display: block;" />
+                            <div class="glass glass-card transformation-image-container" style="padding: 1.5rem; background: rgba(255, 255, 255, 0.95); overflow: hidden; position: relative; cursor: pointer;">
+                                <img class="transformation-image" src="/static/app/dashboard_theme_manager/images/app/transformation_before.png" alt="Default Splunk Dashboard - Before" data-image-type="before" style="width: 100%; height: auto; border-radius: 8px; display: block; transition: transform 0.3s ease;" />
+                                <div class="image-enlarge-hint" style="position: absolute; top: 1rem; right: 1rem; background: rgba(0, 0, 0, 0.6); color: white; padding: 0.5rem 0.75rem; border-radius: 8px; font-size: 0.75rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(10px);">Click to enlarge</div>
                             </div>
                         </div>
                         
@@ -626,8 +627,9 @@
                             <div style="text-align: center; margin-bottom: 1rem;">
                                 <span style="background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 0.5rem 1rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem;">✓ After</span>
                             </div>
-                            <div class="glass glass-card" style="padding: 1.5rem; background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1)); overflow: hidden;">
-                                <img src="/static/app/dashboard_theme_manager/images/app/transformation_after.png" alt="Themed Splunk Dashboard - After" style="width: 100%; height: auto; border-radius: 8px; display: block;" />
+                            <div class="glass glass-card transformation-image-container" style="padding: 1.5rem; background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1)); overflow: hidden; position: relative; cursor: pointer;">
+                                <img class="transformation-image" src="/static/app/dashboard_theme_manager/images/app/transformation_after.png" alt="Themed Splunk Dashboard - After" data-image-type="after" style="width: 100%; height: auto; border-radius: 8px; display: block; transition: transform 0.3s ease;" />
+                                <div class="image-enlarge-hint" style="position: absolute; top: 1rem; right: 1rem; background: rgba(0, 0, 0, 0.6); color: white; padding: 0.5rem 0.75rem; border-radius: 8px; font-size: 0.75rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(10px);">Click to enlarge</div>
                             </div>
                         </div>
                     </div>

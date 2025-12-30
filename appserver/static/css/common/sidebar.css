@@ -126,22 +126,92 @@ body[data-theme="dark"] {
     transform: rotate(180deg);
 }
 
-/* Header */
-.tm-sidebar-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: hsl(var(--tm-foreground));
+/* Header & Logo */
+.tm-sidebar-header {
     margin-bottom: 2rem;
-    padding-left: 0.5rem;
-    white-space: nowrap;
+    padding-left: 0.25rem;
     overflow: hidden;
-    opacity: 1;
-    transition: opacity 0.2s;
 }
 
-.tm-sidebar.collapsed .tm-sidebar-title {
+.tm-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 42px;
+    color: hsl(var(--tm-foreground));
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: "Splunk Platform Sans", "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.tm-logo-icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(var(--tm-foreground));
+}
+
+.tm-logo-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.tm-logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1;
+    opacity: 1;
+    transition: opacity 0.2s, transform 0.2s;
+    transform: translateX(0);
+    white-space: nowrap;
+}
+
+.tm-logo-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: hsl(var(--tm-foreground));
+    margin-bottom: 2px;
+}
+
+.tm-brand-accent {
+    color: #CE352C; /* Official Splunk Orange/Red Accent */
+    font-weight: 700;
+}
+
+/* Adjust accent for dark mode if needed, or keep orange as it pops on both */
+body[data-theme="dark"] .tm-brand-accent {
+    color: #F55D42; /* Slightly brighter orange for dark mode */
+}
+
+.tm-logo-app {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: hsl(var(--tm-muted-foreground));
+    letter-spacing: 0.02em;
+}
+
+/* Collapsed Logo State */
+.tm-sidebar.collapsed .tm-logo-text {
     opacity: 0;
+    width: 0;
     pointer-events: none;
+    transform: translateX(-10px);
+}
+
+.tm-sidebar.collapsed .tm-sidebar-header {
+    padding-left: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.tm-sidebar.collapsed .tm-logo-container {
+    gap: 0;
+    justify-content: center;
 }
 
 /* Navigation List */

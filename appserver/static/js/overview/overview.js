@@ -412,6 +412,418 @@ require([
 
         // 5. Vertical Timeline Sidebar
         initTimelineSidebar();
+
+        // 6. Transformation Image Enlargement
+        initTransformationImageEnlargement();
+      }
+
+      // Transformation Image Enlargement Functionality
+      function initTransformationImageEnlargement() {
+        const transformationImages = document.querySelectorAll('.transformation-image');
+        let enlargedImage = null;
+        let enlargedBackdrop = null;
+
+        transformationImages.forEach((img) => {
+          const container = img.closest('.transformation-image-container');
+          const hint = container?.querySelector('.image-enlarge-hint');
+
+          // Show hint on hover
+          container?.addEventListener('mouseenter', () => {
+            if (!img.classList.contains('enlarged')) {
+              gsap.to(hint, { opacity: 1, duration: 0.3, ease: 'power2.out' });
+            }
+          });
+
+          container?.addEventListener('mouseleave', () => {
+            gsap.to(hint, { opacity: 0, duration: 0.3, ease: 'power2.out' });
+          });
+
+          // Click to enlarge/reduce
+          container?.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            if (img.classList.contains('enlarged')) {
+              // Close enlargement
+              closeEnlargement(img, container);
+            } else {
+              // Close any other enlarged image first
+              if (enlargedImage && enlargedImage !== img) {
+                const otherContainer = document.querySelector('.transformation-image-container');
+                if (otherContainer) {
+                  closeEnlargement(enlargedImage, otherContainer);
+                }
+              }
+              // Enlarge this image
+              enlargeImage(img, container);
+            }
+          });
+          
+          // Also allow clicking directly on the enlarged image to close
+          img.addEventListener('click', (e) => {
+            if (img.classList.contains('enlarged')) {
+              e.stopPropagation();
+              console.log('[Image Close] Image clicked to close');
+              closeEnlargement(img, container);
+            }
+          });
+        });
+
+        // Close on backdrop click or anywhere on page (except the image itself)
+        function handleDocumentClick(e) {
+          if (enlargedImage && enlargedBackdrop) {
+            console.log('[Image Close] Document click detected', e.target);
+            
+            // Close if clicking on backdrop
+            if (e.target === enlargedBackdrop) {
+              console.log('[Image Close] Backdrop clicked');
+              e.preventDefault();
+              e.stopPropagation();
+              const container = document.querySelector('.transformation-image-container');
+              closeEnlargement(enlargedImage, container);
+              return;
+            }
+            
+            // Close if clicking anywhere except the enlarged image itself
+            // Check if click is on the image or inside the image
+            const isClickOnImage = e.target === enlargedImage || 
+                                   enlargedImage.contains(e.target) ||
+                                   e.target.closest('.transformation-image.enlarged') === enlargedImage;
+            
+            if (!isClickOnImage) {
+              console.log('[Image Close] Clicked outside image, closing...');
+              e.preventDefault();
+              e.stopPropagation();
+              const container = document.querySelector('.transformation-image-container');
+              closeEnlargement(enlargedImage, container);
+            }
+          }
+        }
+        
+        // Use capture phase to catch clicks early
+        document.addEventListener('click', handleDocumentClick, true);
+
+        // Close on ESC key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && enlargedImage) {
+            console.log('[Image Close] ESC key pressed');
+            const container = document.querySelector('.transformation-image-container');
+            if (container) {
+              closeEnlargement(enlargedImage, container);
+            } else {
+              closeEnlargement(enlargedImage, null);
+            }
+          }
+        });
+
+        function enlargeImage(img, container) {
+          console.log('[Image Enlarge] Starting enlargement...', img);
+          const rect = img.getBoundingClientRect();
+          const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+          const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+          console.log('[Image Enlarge] Image rect:', rect);
+          console.log('[Image Enlarge] Scroll:', scrollX, scrollY);
+
+          // Create backdrop overlay
+          enlargedBackdrop = document.createElement('div');
+          enlargedBackdrop.className = 'transformation-backdrop';
+          enlargedBackdrop.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: auto;
+          `;
+          document.body.appendChild(enlargedBackdrop);
+          console.log('[Image Enlarge] Backdrop created');
+
+          // Store original position and dimensions
+          img.dataset.originalViewportX = rect.left;
+          img.dataset.originalViewportY = rect.top;
+          img.dataset.originalScrollX = scrollX;
+          img.dataset.originalScrollY = scrollY;
+          img.dataset.originalWidth = rect.width;
+          img.dataset.originalHeight = rect.height;
+          img.dataset.originalZIndex = window.getComputedStyle(img).zIndex || '';
+          img.dataset.originalPosition = window.getComputedStyle(img).position || '';
+
+          // Calculate center position
+          const scale = 1.5;
+          const currentWidth = rect.width;
+          const currentHeight = rect.height;
+          const newWidth = currentWidth * scale;
+          const newHeight = currentHeight * scale;
+          const centerX = window.innerWidth / 2 - newWidth / 2;
+          const centerY = window.innerHeight / 2 - newHeight / 2;
+
+          console.log('[Image Enlarge] Target position:', centerX, centerY);
+          console.log('[Image Enlarge] Target size:', newWidth, newHeight);
+
+          // Store original container overflow
+          img.dataset.originalContainerOverflow = container.style.overflow || '';
+          
+          // Remove overflow hidden from container to prevent clipping
+          container.style.overflow = 'visible';
+          
+          // Store original styles before modifying
+          const originalStyles = {
+            position: img.style.position || '',
+            zIndex: img.style.zIndex || '',
+            left: img.style.left || '',
+            top: img.style.top || '',
+            width: img.style.width || '',
+            height: img.style.height || '',
+            margin: img.style.margin || '',
+            transform: img.style.transform || ''
+          };
+          img.dataset.originalStyles = JSON.stringify(originalStyles);
+
+          // Move image to body to avoid any parent clipping
+          const placeholder = document.createElement('div');
+          placeholder.style.width = currentWidth + 'px';
+          placeholder.style.height = currentHeight + 'px';
+          placeholder.style.visibility = 'hidden';
+          placeholder.className = 'image-placeholder';
+          container.insertBefore(placeholder, img);
+          
+          // Move image to body
+          document.body.appendChild(img);
+
+          // Apply fixed positioning and initial size
+          img.style.position = 'fixed';
+          img.style.zIndex = '10000';
+          img.style.left = rect.left + 'px';
+          img.style.top = rect.top + 'px';
+          img.style.width = currentWidth + 'px';
+          img.style.height = currentHeight + 'px';
+          img.style.margin = '0';
+          img.style.padding = '0';
+          img.style.willChange = 'transform, width, height';
+          img.style.objectFit = 'contain';
+          img.style.display = 'block';
+          img.style.visibility = 'visible';
+          img.style.opacity = '1';
+          img.style.transformOrigin = 'center center';
+          img.style.overflow = 'visible';
+          img.classList.add('enlarged');
+          
+          // Store placeholder reference
+          img.dataset.placeholder = placeholder;
+
+          console.log('[Image Enlarge] Image styles applied:', {
+            position: img.style.position,
+            zIndex: img.style.zIndex,
+            left: img.style.left,
+            top: img.style.top,
+            width: img.style.width,
+            height: img.style.height
+          });
+
+          // Set initial GSAP transform
+          gsap.set(img, {
+            x: 0,
+            y: 0,
+            scale: 1
+          });
+
+          // Animate backdrop fade in
+          gsap.to(enlargedBackdrop, {
+            opacity: 1,
+            duration: 0.4,
+            ease: 'power2.out'
+          });
+
+          // Calculate transform needed to move from current position to center
+          const deltaX = centerX - rect.left;
+          const deltaY = centerY - rect.top;
+          const scaleFactor = scale;
+
+          console.log('[Image Enlarge] Transform delta:', deltaX, deltaY, 'scale:', scaleFactor);
+
+          // Animate image enlargement using transforms (more reliable)
+          gsap.to(img, {
+            x: deltaX,
+            y: deltaY,
+            scale: scaleFactor,
+            width: newWidth,
+            height: newHeight,
+            duration: 0.6,
+            ease: 'power3.out',
+            onStart: () => {
+              console.log('[Image Enlarge] Animation started');
+            },
+            onUpdate: () => {
+              const computed = window.getComputedStyle(img);
+              console.log('[Image Enlarge] Animation updating - transform:', computed.transform, 'left:', img.style.left);
+            },
+            onComplete: () => {
+              console.log('[Image Enlarge] Animation complete');
+              img.style.borderRadius = '12px';
+              img.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(56, 189, 248, 0.3)';
+              const computed = window.getComputedStyle(img);
+              console.log('[Image Enlarge] Final image state:', {
+                position: img.style.position,
+                left: img.style.left,
+                top: img.style.top,
+                width: img.style.width,
+                height: img.style.height,
+                zIndex: img.style.zIndex,
+                transform: computed.transform,
+                display: computed.display,
+                visibility: computed.visibility,
+                opacity: computed.opacity
+              });
+            }
+          });
+
+          // Hide hint
+          const hint = container.querySelector('.image-enlarge-hint');
+          if (hint) {
+            gsap.to(hint, { opacity: 0, duration: 0.2 });
+          }
+
+          enlargedImage = img;
+        }
+
+        function closeEnlargement(img, container) {
+          if (!img) {
+            console.log('[Image Close] No image provided');
+            return;
+          }
+          
+          // Find container if not provided or if it's not the right one
+          if (!container || !container.classList.contains('transformation-image-container')) {
+            // Try to find the original container by looking for placeholder
+            const placeholder = document.querySelector('.image-placeholder');
+            if (placeholder && placeholder.parentNode) {
+              container = placeholder.parentNode;
+            } else {
+              // Fallback: find any transformation container
+              container = document.querySelector('.transformation-image-container');
+            }
+          }
+          
+          if (!container) {
+            console.warn('[Image Close] Container not found, will append to body');
+            container = document.body;
+          }
+          
+          console.log('[Image Close] Closing enlargement...', img, container);
+
+          // Get stored original position and dimensions
+          const originalViewportX = parseFloat(img.dataset.originalViewportX) || 0;
+          const originalViewportY = parseFloat(img.dataset.originalViewportY) || 0;
+          const originalWidth = parseFloat(img.dataset.originalWidth) || img.getBoundingClientRect().width / 1.5;
+          const originalHeight = parseFloat(img.dataset.originalHeight) || img.getBoundingClientRect().height / 1.5;
+          
+          // Calculate where the container currently is (accounting for scroll changes)
+          const currentScrollX = window.pageXOffset || document.documentElement.scrollLeft;
+          const currentScrollY = window.pageXOffset || document.documentElement.scrollTop;
+          const originalScrollX = parseFloat(img.dataset.originalScrollX) || currentScrollX;
+          const originalScrollY = parseFloat(img.dataset.originalScrollY) || currentScrollY;
+          
+          // Adjust for scroll offset change
+          const scrollDeltaX = currentScrollX - originalScrollX;
+          const scrollDeltaY = currentScrollY - originalScrollY;
+          const originalX = originalViewportX + scrollDeltaX;
+          const originalY = originalViewportY + scrollDeltaY;
+
+          // Animate backdrop fade out
+          gsap.to(enlargedBackdrop, {
+            opacity: 0,
+            duration: 0.4,
+            ease: 'power2.in',
+            onComplete: () => {
+              if (enlargedBackdrop && enlargedBackdrop.parentNode) {
+                enlargedBackdrop.parentNode.removeChild(enlargedBackdrop);
+              }
+              enlargedBackdrop = null;
+            }
+          });
+
+          // Calculate transform to return to original position
+          const currentRect = img.getBoundingClientRect();
+          const returnDeltaX = originalX - currentRect.left;
+          const returnDeltaY = originalY - currentRect.top;
+
+          // Animate image back to original position
+          gsap.to(img, {
+            x: returnDeltaX,
+            y: returnDeltaY,
+            scale: 1,
+            width: originalWidth,
+            height: originalHeight,
+            duration: 0.6,
+            ease: 'power3.out', // Matching parallax easing
+            onComplete: () => {
+              console.log('[Image Close] Animation complete, restoring image...');
+              
+              // Move image back to container - find placeholder by class
+              const placeholder = document.querySelector('.image-placeholder');
+              if (placeholder && placeholder.parentNode) {
+                console.log('[Image Close] Replacing placeholder with image');
+                placeholder.parentNode.replaceChild(img, placeholder);
+              } else if (container && container.classList.contains('transformation-image-container')) {
+                console.log('[Image Close] Appending image to container');
+                container.appendChild(img);
+              } else {
+                // Find any transformation container
+                const fallbackContainer = document.querySelector('.transformation-image-container');
+                if (fallbackContainer) {
+                  console.log('[Image Close] Using fallback container');
+                  fallbackContainer.appendChild(img);
+                }
+              }
+              
+              // Reset container overflow
+              if (container && img.dataset.originalContainerOverflow !== undefined) {
+                container.style.overflow = img.dataset.originalContainerOverflow || '';
+              }
+              
+              // Reset styles
+              img.style.position = img.dataset.originalPosition || '';
+              img.style.zIndex = img.dataset.originalZIndex || '';
+              img.style.left = '';
+              img.style.top = '';
+              img.style.width = '';
+              img.style.height = '';
+              img.style.margin = '';
+              img.style.boxShadow = '';
+              img.style.borderRadius = '';
+              img.style.willChange = '';
+              img.style.transformOrigin = '';
+              img.style.overflow = '';
+              img.style.objectFit = '';
+              gsap.set(img, { clearProps: 'all' }); // Clear GSAP transforms
+              img.classList.remove('enlarged');
+
+              if (container) {
+                container.style.zIndex = '';
+                container.style.position = '';
+              }
+
+              // Clean up data attributes
+              delete img.dataset.originalViewportX;
+              delete img.dataset.originalViewportY;
+              delete img.dataset.originalScrollX;
+              delete img.dataset.originalScrollY;
+              delete img.dataset.originalWidth;
+              delete img.dataset.originalHeight;
+              delete img.dataset.originalZIndex;
+              delete img.dataset.originalPosition;
+              delete img.dataset.originalContainerOverflow;
+              delete img.dataset.placeholder;
+
+              enlargedImage = null;
+              console.log('[Image Close] Cleanup complete');
+            }
+          });
+        }
       }
 
       // Timeline Sidebar Functionality

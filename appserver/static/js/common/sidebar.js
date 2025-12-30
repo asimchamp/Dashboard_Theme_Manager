@@ -13,7 +13,22 @@ require([
                 <path d="M9 3v18"></path>
             </svg>
         </button>
-        <div class="tm-sidebar-title">Theme Manager</div>
+        <div class="tm-sidebar-header">
+            <div class="tm-logo-container">
+                <!-- Professional Abstract Layers Icon -->
+                <div class="tm-logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 2L2 9L16 16L30 9L16 2Z" fill="currentColor" fill-opacity="0.9"/>
+                        <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="tm-logo-text">
+                    <span class="tm-logo-brand">splunk <span class="tm-brand-accent"> &gt;</span></span>
+                    <span class="tm-logo-app">Theme Manager</span>
+                </div>
+            </div>
+        </div>
         <ul class="tm-nav-list">
             <li>
                 <a href="overview_dh" class="tm-nav-btn" data-page="overview_dh" data-label="Home">

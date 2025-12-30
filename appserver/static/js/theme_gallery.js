@@ -213,30 +213,108 @@
      * Setup global event listeners
      */
     function setupEventListeners() {
-        // Mode filter
-        const modeFilter = document.getElementById('theme-mode-filter');
-        if (modeFilter) {
-            modeFilter.addEventListener('change', (e) => {
-                currentFilters.mode = e.target.value;
-                currentPage = 1;
-                renderThemeGallery();
-                updateThemeCount();
+        console.log('[Theme Gallery] Setting up event listeners...');
+        
+        // Category filter dropdown toggle
+        const categoryFilterBtn = document.getElementById('categoryFilter');
+        console.log('[Theme Gallery] Category filter button:', categoryFilterBtn);
+        if (categoryFilterBtn) {
+            categoryFilterBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const dropdown = categoryFilterBtn.closest('.tm-filter-dropdown');
+                if (dropdown) {
+                    dropdown.classList.toggle('open');
+                    console.log('[Theme Gallery] Category dropdown toggled:', dropdown.classList.contains('open'));
+                }
+                // Close other dropdowns
+                document.querySelectorAll('.tm-filter-dropdown').forEach(dd => {
+                    if (dd !== dropdown) dd.classList.remove('open');
+                });
             });
         }
 
-        // Category filter
-        const categoryFilter = document.getElementById('theme-category-filter');
-        if (categoryFilter) {
-            categoryFilter.addEventListener('change', (e) => {
-                currentFilters.category = e.target.value;
+        // Category filter items
+        const categoryItems = document.querySelectorAll('#categoryMenu .tm-dropdown-item');
+        console.log('[Theme Gallery] Category filter items found:', categoryItems.length);
+        categoryItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const category = item.dataset.category || item.getAttribute('data-category');
+                const label = item.textContent.trim();
+                
+                // Update active state
+                document.querySelectorAll('#categoryMenu .tm-dropdown-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Update label
+                const categoryLabel = document.getElementById('categoryLabel');
+                if (categoryLabel) {
+                    categoryLabel.textContent = label.replace('All Themes', 'All');
+                }
+                
+                // Update filter
+                currentFilters.category = category === 'all' ? 'all' : category;
                 currentPage = 1;
                 renderThemeGallery();
                 updateThemeCount();
+                
+                // Close dropdown
+                const dropdown = categoryFilterBtn?.closest('.tm-filter-dropdown');
+                if (dropdown) dropdown.classList.remove('open');
+            });
+        });
+
+        // Mode filter dropdown toggle
+        const modeFilterBtn = document.getElementById('modeFilter');
+        console.log('[Theme Gallery] Mode filter button:', modeFilterBtn);
+        if (modeFilterBtn) {
+            modeFilterBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const dropdown = modeFilterBtn.closest('.tm-filter-dropdown');
+                if (dropdown) {
+                    dropdown.classList.toggle('open');
+                    console.log('[Theme Gallery] Mode dropdown toggled:', dropdown.classList.contains('open'));
+                }
+                // Close other dropdowns
+                document.querySelectorAll('.tm-filter-dropdown').forEach(dd => {
+                    if (dd !== dropdown) dd.classList.remove('open');
+                });
             });
         }
 
-        // Search
-        const searchInput = document.getElementById('theme-search');
+        // Mode filter items
+        const modeItems = document.querySelectorAll('#modeMenu .tm-dropdown-item');
+        console.log('[Theme Gallery] Mode filter items found:', modeItems.length);
+        modeItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const mode = item.dataset.mode || item.getAttribute('data-mode');
+                const label = item.textContent.trim();
+                
+                // Update active state
+                document.querySelectorAll('#modeMenu .tm-dropdown-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Update label
+                const modeLabel = document.getElementById('modeLabel');
+                if (modeLabel) {
+                    modeLabel.textContent = label.replace('All Modes', 'All');
+                }
+                
+                // Update filter
+                currentFilters.mode = mode === 'all' ? 'all' : mode;
+                currentPage = 1;
+                renderThemeGallery();
+                updateThemeCount();
+                
+                // Close dropdown
+                const dropdown = modeFilterBtn?.closest('.tm-filter-dropdown');
+                if (dropdown) dropdown.classList.remove('open');
+            });
+        });
+
+        // Search - support both IDs
+        const searchInput = document.getElementById('themeSearch') || document.getElementById('theme-search');
         if (searchInput) {
             searchInput.addEventListener('input', debounce((e) => {
                 currentFilters.search = e.target.value;
@@ -245,6 +323,15 @@
                 updateThemeCount();
             }, 300));
         }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.tm-filter-dropdown')) {
+                document.querySelectorAll('.tm-filter-dropdown').forEach(dd => {
+                    dd.classList.remove('open');
+                });
+            }
+        });
     }
 
     /**
@@ -421,11 +508,22 @@
         };
     }
 
-    // Initialize when DOM is ready
+    // Initialize when DOM is ready - with delay to ensure RequireJS has loaded everything
+    function delayedInit() {
+        setTimeout(() => {
+            if (document.getElementById('categoryFilter') || document.getElementById('themeSearch')) {
+                initThemeGallery();
+            } else {
+                // Retry after a short delay if elements aren't ready yet
+                setTimeout(delayedInit, 100);
+            }
+        }, 100);
+    }
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initThemeGallery);
+        document.addEventListener('DOMContentLoaded', delayedInit);
     } else {
-        initThemeGallery();
+        delayedInit();
     }
 
     // Export for external use

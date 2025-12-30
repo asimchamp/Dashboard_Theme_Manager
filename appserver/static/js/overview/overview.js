@@ -45,30 +45,33 @@ require([
         console.log('Registered ScrollTrigger with GSAP');
     }
     
-    // Initialize app
-    setTimeout(function() {
-        initApp();
-    }, 100);
+      // Initialize app
+      setTimeout(function() {
+          initApp();
+      }, 100);
 
-    function initApp() {
-      // Verify all required libraries are available
-      if (typeof gsap === 'undefined') {
-        console.error('GSAP is not defined');
-        return;
-      }
-      if (typeof Lenis === 'undefined') {
-        console.error('Lenis is not defined');
-        return;
-      }
-      if (typeof ScrollTrigger === 'undefined') {
-        console.error('ScrollTrigger is not defined');
-        return;
-      }
-      
-      console.log('Initializing app with GSAP, Lenis, and ScrollTrigger');
+      // Declare lenis at module scope so it's accessible to all functions
+      let lenisInstance = null;
 
-    // 0. Initialize Lenis for Smooth Scroll
-      const lenis = new Lenis({
+      function initApp() {
+        // Verify all required libraries are available
+        if (typeof gsap === 'undefined') {
+          console.error('GSAP is not defined');
+          return;
+        }
+        if (typeof Lenis === 'undefined') {
+          console.error('Lenis is not defined');
+          return;
+        }
+        if (typeof ScrollTrigger === 'undefined') {
+          console.error('ScrollTrigger is not defined');
+          return;
+        }
+        
+        console.log('Initializing app with GSAP, Lenis, and ScrollTrigger');
+
+      // 0. Initialize Lenis for Smooth Scroll
+        lenisInstance = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: "vertical",
@@ -79,15 +82,15 @@ require([
         touchMultiplier: 2,
       });
 
-      function raf(time) {
-        lenis.raf(time);
+        function raf(time) {
+          lenisInstance.raf(time);
+          requestAnimationFrame(raf);
+        }
+
         requestAnimationFrame(raf);
-      }
 
-      requestAnimationFrame(raf);
-
-      // Integrate Lenis with GSAP
-      gsap.registerPlugin(ScrollTrigger);
+        // Integrate Lenis with GSAP
+        gsap.registerPlugin(ScrollTrigger);
 
       // 1. GSAP Parallax Logic
 
@@ -240,14 +243,27 @@ require([
         toggleClass: { className: "scrolled", targets: nav },
       });
 
-      // Smooth scroll for anchors (Handled by Lenis automatically if configured only for #internal links handled manually)
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute("href"));
-          lenis.scrollTo(target);
+        // Smooth scroll for anchors with offset for fixed nav
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            const href = this.getAttribute("href");
+            if (href === "#" || href === "") return; // Skip empty anchors
+            
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              // Calculate offset for fixed navbar (approximately 130px: nav height + spacing)
+              const offset = 130;
+              const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+              
+              // Use Lenis smooth scroll
+              lenisInstance.scrollTo(targetPosition, {
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+              });
+            }
+          });
         });
-      });
 
       // --- EXISTING FUNCTIONALITY PRESERVED BELOW ---
 
@@ -376,22 +392,322 @@ require([
           btn.style.transform = "translate(0, 0) scale(1)";
         });
       });
-      // 4. FAQ Accordion
-      document.querySelectorAll(".faq-item").forEach((item) => {
-        item.addEventListener("click", () => {
-          // Close others
-          document.querySelectorAll(".faq-item").forEach((other) => {
-            if (other !== item) other.classList.remove("active");
-          });
-          item.classList.toggle("active");
+        // 4. FAQ Accordion
+        document.querySelectorAll(".faq-item").forEach((item) => {
+          item.addEventListener("click", () => {
+            // Close others
+            document.querySelectorAll(".faq-item").forEach((other) => {
+              if (other !== item) other.classList.remove("active");
+            });
+            item.classList.toggle("active");
 
-          // Toggle icon
-          const toggle = item.querySelector(".faq-toggle");
-          toggle.textContent = item.classList.contains("active") ? "×" : "+";
-          toggle.style.transform = item.classList.contains("active")
-            ? "rotate(180deg)"
-            : "rotate(0)";
+            // Toggle icon
+            const toggle = item.querySelector(".faq-toggle");
+            toggle.textContent = item.classList.contains("active") ? "×" : "+";
+            toggle.style.transform = item.classList.contains("active")
+              ? "rotate(180deg)"
+              : "rotate(0)";
+          });
         });
-      });
-    }
-});
+
+        // 5. Vertical Timeline Sidebar
+        initTimelineSidebar();
+      }
+
+      // Timeline Sidebar Functionality
+      function initTimelineSidebar() {
+        const sidebar = document.getElementById("timelineSidebar");
+        const progressFill = document.getElementById("timelineProgress");
+        const dragIndicator = document.getElementById("timelineDragIndicator");
+        const timelineItems = document.querySelectorAll(".timeline-item");
+        
+        console.log('Timeline sidebar elements:', {
+          sidebar: !!sidebar,
+          progressFill: !!progressFill,
+          dragIndicator: !!dragIndicator,
+          timelineItems: timelineItems.length
+        });
+        
+        if (!sidebar || !progressFill || timelineItems.length === 0) {
+          console.warn("Timeline sidebar elements not found");
+          return;
+        }
+        
+        if (!dragIndicator) {
+          console.warn("Drag indicator not found!");
+        }
+
+        // Get all sections that correspond to timeline items and sort by data-order
+        const sections = [];
+        const itemsArray = Array.from(timelineItems);
+        
+        // Sort items by their data-order attribute
+        itemsArray.sort((a, b) => {
+          const orderA = parseInt(a.getAttribute("data-order")) || 0;
+          const orderB = parseInt(b.getAttribute("data-order")) || 0;
+          return orderA - orderB;
+        });
+
+        itemsArray.forEach((item) => {
+          const sectionId = item.getAttribute("data-section");
+          const order = parseInt(item.getAttribute("data-order")) || 0;
+          const section = document.getElementById(sectionId);
+          if (section) {
+            sections.push({ 
+              element: section, 
+              item: item, 
+              id: sectionId,
+              order: order 
+            });
+          }
+        });
+
+        // Show sidebar after scrolling down a bit
+        function updateSidebarVisibility() {
+          if (window.pageYOffset > 200) {
+            sidebar.classList.add("visible");
+          } else {
+            sidebar.classList.remove("visible");
+          }
+        }
+
+        // Update active section and progress
+        function updateTimeline() {
+          const scrollPosition = window.pageYOffset;
+          const windowHeight = window.innerHeight;
+          const documentHeight = document.documentElement.scrollHeight;
+
+          // Calculate overall progress (0-100%)
+          const progress = (scrollPosition / (documentHeight - windowHeight)) * 100;
+          progressFill.style.height = Math.min(progress, 100) + "%";
+
+          // Update drag indicator position based on progress
+          if (dragIndicator) {
+            const progressBarRect = dragIndicator.parentElement.getBoundingClientRect();
+            const progressBarHeight = progressBarRect.height;
+            const indicatorTop = (progress / 100) * progressBarHeight;
+            dragIndicator.style.top = indicatorTop + 'px';
+          }
+
+          // Find the current active section based on scroll position
+          let activeSection = null;
+          let minDistance = Infinity;
+          
+          sections.forEach((section) => {
+            const rect = section.element.getBoundingClientRect();
+            const sectionTop = rect.top;
+            const sectionMiddle = sectionTop + (rect.height / 2);
+            const viewportMiddle = windowHeight / 2;
+            
+            // Calculate distance from viewport middle
+            const distance = Math.abs(sectionMiddle - viewportMiddle);
+            
+            // Find the section closest to viewport middle
+            if (distance < minDistance && sectionTop < windowHeight && rect.bottom > 0) {
+              minDistance = distance;
+              activeSection = section;
+            }
+          });
+
+          // Update active state with animation
+          timelineItems.forEach((item) => {
+            item.classList.remove("active");
+          });
+
+          if (activeSection) {
+            activeSection.item.classList.add("active");
+          }
+
+          updateSidebarVisibility();
+        }
+
+        // Click handler for timeline items - using dots directly
+        timelineItems.forEach((item) => {
+          const dot = item.querySelector('.timeline-dot');
+          if (dot) {
+            dot.addEventListener("click", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              
+              console.log('Timeline item clicked:', item.getAttribute('data-section'));
+              
+              const sectionId = item.getAttribute("data-section");
+              const target = document.getElementById(sectionId);
+              
+              if (target) {
+                console.log('Scrolling to section:', sectionId);
+                
+                // Add click animation
+                gsap.to(dot, {
+                  scale: 1.4,
+                  duration: 0.2,
+                  ease: "back.out(2)",
+                  onComplete: () => {
+                    gsap.to(dot, { scale: 1, duration: 0.2 });
+                  }
+                });
+                
+                const offset = 130; // Nav bar height
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                
+                if (lenisInstance) {
+                  lenisInstance.scrollTo(targetPosition, {
+                    duration: 1.2,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                  });
+                } else {
+                  // Fallback to native scroll if Lenis not available
+                  window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                  });
+                }
+              } else {
+                console.warn('Target section not found:', sectionId);
+              }
+            });
+          }
+        });
+
+        // Drag functionality for the indicator
+        if (dragIndicator) {
+          console.log('Drag indicator found, initializing drag functionality');
+          console.log('Drag indicator element:', dragIndicator);
+          console.log('Drag indicator styles:', window.getComputedStyle(dragIndicator));
+          
+          let isDragging = false;
+          let animationFrameId = null;
+          
+          // Test if element is visible and clickable
+          dragIndicator.addEventListener('mouseenter', () => {
+            console.log('Mouse entered drag indicator');
+            dragIndicator.style.transform = 'translateX(-50%) scale(1.2)';
+          });
+          
+          dragIndicator.addEventListener('mouseleave', () => {
+            console.log('Mouse left drag indicator');
+            dragIndicator.style.transform = 'translateX(-50%) scale(1)';
+          });
+          
+          dragIndicator.addEventListener('click', (e) => {
+            console.log('Drag indicator CLICKED!', e);
+            e.preventDefault();
+            e.stopPropagation();
+          });
+          
+          function onDragStart(e) {
+            console.log('Drag started, event:', e.type);
+            isDragging = true;
+            dragIndicator.classList.add('dragging');
+            
+            // Prevent text selection and default behavior
+            e.preventDefault();
+            e.stopPropagation();
+            document.body.style.userSelect = 'none';
+            document.body.style.cursor = 'grabbing';
+          }
+          
+          function onDragMove(e) {
+            if (!isDragging) return;
+            
+            // Use requestAnimationFrame for smooth updates
+            if (animationFrameId) {
+              cancelAnimationFrame(animationFrameId);
+            }
+            
+            animationFrameId = requestAnimationFrame(() => {
+              const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+              const progressBar = dragIndicator.parentElement;
+              const progressBarRect = progressBar.getBoundingClientRect();
+              
+              // Calculate position relative to progress bar
+              let relativeY = clientY - progressBarRect.top;
+              relativeY = Math.max(0, Math.min(relativeY, progressBarRect.height));
+              
+              // Calculate percentage
+              const percentage = (relativeY / progressBarRect.height) * 100;
+              
+              // Calculate scroll position
+              const documentHeight = document.documentElement.scrollHeight;
+              const windowHeight = window.innerHeight;
+              const maxScroll = documentHeight - windowHeight;
+              const targetScroll = (percentage / 100) * maxScroll;
+              
+              console.log('Dragging to:', percentage.toFixed(1) + '%', 'scroll:', targetScroll.toFixed(0));
+              
+              // Update indicator position immediately for responsive feel
+              dragIndicator.style.top = relativeY + 'px';
+              
+              // Scroll to position - use window.scrollTo for immediate response during drag
+              window.scrollTo({
+                top: targetScroll,
+                behavior: 'auto' // instant during drag
+              });
+              
+              // Update Lenis scroll position
+              if (lenisInstance) {
+                lenisInstance.scrollTo(targetScroll, { immediate: true });
+              }
+            });
+          }
+          
+          function onDragEnd() {
+            if (!isDragging) return;
+            console.log('Drag ended');
+            isDragging = false;
+            dragIndicator.classList.remove('dragging');
+            document.body.style.userSelect = '';
+            document.body.style.cursor = '';
+            
+            if (animationFrameId) {
+              cancelAnimationFrame(animationFrameId);
+            }
+          }
+          
+          // Make sure indicator is visible and has proper styling
+          dragIndicator.style.cursor = 'grab';
+          dragIndicator.style.pointerEvents = 'all';
+          
+          // Also attach events to the drag handle inside
+          const dragHandle = dragIndicator.querySelector('.drag-handle');
+          if (dragHandle) {
+            console.log('Drag handle found:', dragHandle);
+            dragHandle.style.cursor = 'grab';
+            dragHandle.style.pointerEvents = 'all';
+            
+            // Attach events to both indicator and handle
+            dragHandle.addEventListener('mousedown', onDragStart, false);
+            dragHandle.addEventListener('touchstart', onDragStart, { passive: false });
+          }
+          
+          // Mouse events
+          dragIndicator.addEventListener('mousedown', onDragStart, false);
+          document.addEventListener('mousemove', onDragMove, false);
+          document.addEventListener('mouseup', onDragEnd, false);
+          
+          // Touch events for mobile
+          dragIndicator.addEventListener('touchstart', onDragStart, { passive: false });
+          document.addEventListener('touchmove', onDragMove, { passive: false });
+          document.addEventListener('touchend', onDragEnd, false);
+          document.addEventListener('touchcancel', onDragEnd, false);
+          
+          console.log('Drag event listeners attached to indicator');
+        } else {
+          console.warn('Drag indicator not found!');
+        }
+
+        // Update on scroll using GSAP ScrollTrigger
+        ScrollTrigger.create({
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          onUpdate: updateTimeline,
+        });
+
+        // Also update on window scroll (backup)
+        window.addEventListener("scroll", updateTimeline, { passive: true });
+        
+        // Initial update
+        updateTimeline();
+      }
+    });

@@ -16,6 +16,15 @@ require([
         <div class="tm-sidebar-title">Theme Manager</div>
         <ul class="tm-nav-list">
             <li>
+                <a href="overview_dh" class="tm-nav-btn" data-page="overview_dh" data-label="Home">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
                 <a href="home_dh" class="tm-nav-btn" data-page="home_dh" data-label="Dashboard">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect width="7" height="9" x="3" y="3" rx="1"></rect>
@@ -56,7 +65,7 @@ require([
                 </a>
             </li>
              <li>
-                <a href="help" class="tm-nav-btn" data-page="help" data-label="Help">
+                <a href="overview_dh#how-it-works" class="tm-nav-btn" data-page="help" data-label="Help">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
@@ -117,15 +126,10 @@ require([
 
         // Handle Active State
         const path = window.location.pathname;
-        const page = path.split('/').pop() || 'home_dh';
+        const page = path.split('/').pop() || 'overview_dh';
         
         $('.tm-nav-btn').removeClass('active');
         $(`.tm-nav-btn[data-page="${page}"]`).addClass('active');
-
-        // Handle Home/Overview alias
-        if (page === 'overview_dh') {
-             $(`.tm-nav-btn[data-page="home_dh"]`).addClass('active');
-        }
 
         // Handle Toggle
         const isCollapsed = localStorage.getItem('tm_sidebar_collapsed') === 'true';

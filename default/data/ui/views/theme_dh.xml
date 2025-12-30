@@ -73,9 +73,15 @@
                                     </button>
                                     <div class="tm-dropdown-menu" id="categoryMenu">
                                         <button class="tm-dropdown-item active" data-category="all">All Themes</button>
-                                        <button class="tm-dropdown-item" data-category="modern">Modern</button>
                                         <button class="tm-dropdown-item" data-category="professional">Professional</button>
                                         <button class="tm-dropdown-item" data-category="vibrant">Vibrant</button>
+                                        <button class="tm-dropdown-item" data-category="modern">Modern</button>
+                                        <button class="tm-dropdown-item" data-category="creative">Creative</button>
+                                        <button class="tm-dropdown-item" data-category="nature">Nature</button>
+                                        <button class="tm-dropdown-item" data-category="technical">Technical</button>
+                                        <button class="tm-dropdown-item" data-category="space">Space</button>
+                                        <button class="tm-dropdown-item" data-category="presentation">Presentation</button>
+                                        <button class="tm-dropdown-item" data-category="hybrid">Hybrid</button>
                                     </div>
                                 </div>
                                 <div class="tm-filter-dropdown">

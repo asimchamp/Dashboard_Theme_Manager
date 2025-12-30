@@ -426,7 +426,7 @@
                         </p>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
                         <!-- Step 1 -->
                         <div class="glass glass-card fade-in-up" style="padding: 2rem;">
                             <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
@@ -528,17 +528,8 @@
                             <div style="text-align: center; margin-bottom: 1rem;">
                                 <span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 0.5rem 1rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem;">❌ Before</span>
                             </div>
-                            <div class="glass glass-card" style="padding: 1.5rem; background: rgba(255, 255, 255, 0.95);">
-                                <div style="background: #f3f4f6; padding: 2rem; border-radius: 8px; min-height: 300px; display: flex; flex-direction: column; gap: 1rem;">
-                                    <div style="background: white; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 4px;">
-                                        <div style="color: #6b7280; font-size: 0.9rem;">Default Splunk Dashboard</div>
-                                        <div style="color: #1f2937; font-size: 1.5rem; font-weight: 600; margin-top: 0.5rem;">Plain &amp; Generic</div>
-                                    </div>
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                                        <div style="background: white; padding: 0.75rem; border: 1px solid #e5e7eb; height: 80px;"></div>
-                                        <div style="background: white; padding: 0.75rem; border: 1px solid #e5e7eb; height: 80px;"></div>
-                                    </div>
-                                </div>
+                            <div class="glass glass-card" style="padding: 1.5rem; background: rgba(255, 255, 255, 0.95); overflow: hidden;">
+                                <img src="/static/app/dashboard_theme_manager/images/app/transformation_before.png" alt="Default Splunk Dashboard - Before" style="width: 100%; height: auto; border-radius: 8px; display: block;" />
                             </div>
                         </div>
                         
@@ -547,17 +538,8 @@
                             <div style="text-align: center; margin-bottom: 1rem;">
                                 <span style="background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 0.5rem 1rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem;">✓ After</span>
                             </div>
-                            <div class="glass glass-card" style="padding: 1.5rem; background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1));">
-                                <div style="background: rgba(15, 23, 42, 0.9); padding: 2rem; border-radius: 8px; min-height: 300px; display: flex; flex-direction: column; gap: 1rem; border: 1px solid rgba(56, 189, 248, 0.3);">
-                                    <div style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1)); padding: 1rem; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; backdrop-filter: blur(10px);">
-                                        <div style="color: #94a3b8; font-size: 0.9rem;">Themed Dashboard</div>
-                                        <div style="color: #fff; font-size: 1.5rem; font-weight: 600; margin-top: 0.5rem; background: linear-gradient(135deg, #38bdf8, #818cf8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Stunning &amp; Modern</div>
-                                    </div>
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                                        <div style="background: rgba(56, 189, 248, 0.05); padding: 0.75rem; border: 1px solid rgba(56, 189, 248, 0.2); height: 80px; border-radius: 8px;"></div>
-                                        <div style="background: rgba(129, 140, 248, 0.05); padding: 0.75rem; border: 1px solid rgba(129, 140, 248, 0.2); height: 80px; border-radius: 8px;"></div>
-                                    </div>
-                                </div>
+                            <div class="glass glass-card" style="padding: 1.5rem; background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1)); overflow: hidden;">
+                                <img src="/static/app/dashboard_theme_manager/images/app/transformation_after.png" alt="Themed Splunk Dashboard - After" style="width: 100%; height: auto; border-radius: 8px; display: block;" />
                             </div>
                         </div>
                     </div>

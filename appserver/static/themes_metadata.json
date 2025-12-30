@@ -9,6 +9,7 @@
       "order": 1,
       "featured": true,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_glassmorphism.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_glassmorphism.png",
       "features": [
         "Modern frosted glass effect with backdrop blur",
@@ -27,6 +28,7 @@
       "order": 2,
       "featured": true,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_cyber.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_cyber.png",
       "features": [
         "Futuristic neon cyan accents and elements",
@@ -38,13 +40,14 @@
     },
     {
       "id": "dhm_dashboard_slate",
-      "name": "Violet Dreams (Remastered)",
+      "name": "Violet Dreams",
       "description": "Mystical purple gradients with a dream-like atmosphere and deep blur effects",
       "mode": "Dark",
       "category": "Creative",
       "order": 3,
       "featured": false,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_purple.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_purple.png",
       "features": [
         "Updated: Custom 'Galaxy Spiral' SVG Background",
@@ -62,6 +65,7 @@
       "order": 4,
       "featured": true,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_blue.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_blue.png",
       "features": [
         "Calm and refreshing color palette",
@@ -80,6 +84,7 @@
       "order": 5,
       "featured": true,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_slate.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_slate.png",
       "features": [
         "Professional dark granite aesthetic",
@@ -91,13 +96,14 @@
     },
     {
       "id": "dhm_dashboard_purple",
-      "name": "Mega Bold (Remastered)",
+      "name": "Mega Bold",
       "description": "High-impact, large typography theme for wall monitors and executive summaries",
       "mode": "Dark",
       "category": "Presentation",
       "order": 6,
       "featured": false,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_mega.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_mega.png",
       "features": [
         "Updated: Custom 'Impact Chevrons' SVG Background",
@@ -108,13 +114,14 @@
     },
     {
       "id": "dhm_dashboard_cyber_slate",
-      "name": "Midnight Aurora (Remastered)",
+      "name": "Midnight Aurora",
       "description": "Deep night sky aesthetic with shimmering aurora borealis effects",
       "mode": "Dark",
       "category": "Nature",
       "order": 7,
       "featured": false,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_midnight_aurora.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_midnight_aurora.png",
       "features": [
         "Updated: Custom 'Aurora Waves' SVG Background",
@@ -125,13 +132,14 @@
     },
     {
       "id": "dhm_dashboard_mega",
-      "name": "Nebula Blue (Remastered)",
+      "name": "Nebula Blue",
       "description": "Deep space cosmic theme with bright star accents and orbital feels",
       "mode": "Dark",
       "category": "Space",
       "order": 8,
       "featured": false,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_nebula_blue.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_nebula_blue.png",
       "features": [
         "Updated: Custom 'Star Field' SVG Background",
@@ -142,13 +150,14 @@
     },
     {
       "id": "dhm_dashboard_midnight_aurora",
-      "name": "Cyber Slate (Remastered)",
+      "name": "Cyber Slate",
       "description": "A hybrid industrial-tech theme with machined edges and cyber accents",
       "mode": "Dark",
       "category": "Hybrid",
       "order": 10,
       "featured": false,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_cyber_slate.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_cyber_slate.png",
       "features": [
         "Updated: Custom 'Circuit Traces' SVG Background",
@@ -159,13 +168,14 @@
     },
     {
       "id": "dhm_dashboard_nebula_blue",
-      "name": "Emerald Forest (Remastered)",
+      "name": "Emerald Forest",
       "description": "Nature-inspired refreshing green aesthetics with organic shapes and new SVG backgrounds",
       "mode": "Light",
       "category": "Nature",
       "order": 11,
       "featured": false,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_green.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_green.png",
       "features": [
         "Updated: Custom 'Fern Patterns' SVG Background",
@@ -183,6 +193,7 @@
       "order": 12,
       "featured": false,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_solar_flare.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_solar_flare.png",
       "features": [
         "Warm golden and orange energy",
@@ -201,6 +212,7 @@
       "order": 13,
       "featured": false,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_ink_paper.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_ink_paper.png",
       "features": [
         "Classic black and white minimalism",
@@ -219,6 +231,7 @@
       "order": 14,
       "featured": false,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_retro_terminal.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_retro_terminal.png",
       "features": [
         "Nostalgic command-line terminal aesthetic",
@@ -237,6 +250,7 @@
       "order": 15,
       "featured": false,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_sakura_blossom.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_sakura_blossom.png",
       "features": [
         "Delicate pink cherry blossom tones",
@@ -255,6 +269,7 @@
       "order": 16,
       "featured": false,
       "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_arctic_frost.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_arctic_frost.png",
       "features": [
         "Cool icy blue and white tones",
@@ -273,6 +288,7 @@
       "order": 17,
       "featured": false,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_copper_oxide.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_copper_oxide.png",
       "features": [
         "Warm industrial copper and rust tones",
@@ -291,6 +307,7 @@
       "order": 18,
       "featured": true,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_crimson_ops.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_crimson_ops.png",
       "features": [
         "Tactical HUD with chamfered edges",
@@ -309,6 +326,7 @@
       "order": 19,
       "featured": true,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_bioluminescent_deep.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_bioluminescent_deep.png",
       "features": [
         "Underwater bioluminescent organism aesthetic",
@@ -327,6 +345,7 @@
       "order": 20,
       "featured": true,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_desert_mirage.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_desert_mirage.png",
       "features": [
         "Warm sandy beige and terracotta palette",
@@ -345,6 +364,7 @@
       "order": 21,
       "featured": true,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_quantum_lattice.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_quantum_lattice.png",
       "features": [
         "Embedded SVG molecular network background",
@@ -363,6 +383,7 @@
       "order": 22,
       "featured": true,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_origami_clouds.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_origami_clouds.png",
       "features": [
         "Tactile SVG paper art background",
@@ -381,6 +402,7 @@
       "order": 23,
       "featured": true,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_holographic_prism.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_holographic_prism.png",
       "features": [
         "Chromatic aberration (RGB split) borders",
@@ -399,6 +421,7 @@
       "order": 24,
       "featured": true,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_ceramic_flow.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_ceramic_flow.png",
       "features": [
         "Soft extruded claymorphism",
@@ -417,6 +440,7 @@
       "order": 25,
       "featured": true,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_liquid_chrome.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_liquid_chrome.png",
       "features": [
         "Monochromatic metallic palette (Silver/Black)",
@@ -435,6 +459,7 @@
       "order": 26,
       "featured": true,
       "editor": 1,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_topographic_map.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_topographic_map.png",
       "features": [
         "Precision topographic contour lines",

@@ -669,7 +669,7 @@ require([
                     themes.forEach(theme => {
                         html += `
                             <div class="tm-theme-option" data-theme-id="${theme.id}" style="cursor: pointer; padding: 1rem; border: 1px solid hsl(var(--tm-border)); border-radius: var(--tm-radius); text-align: center; transition: all 0.2s;">
-                                <img src="${theme.image}" alt="${theme.name}" style="width: 100%; border-radius: calc(var(--tm-radius) * 0.75); margin-bottom: 0.5rem;" />
+                                <img src="${theme.thumb}" alt="${theme.name}" style="width: 100%; border-radius: calc(var(--tm-radius) * 0.75); margin-bottom: 0.5rem;" />
                                 <p style="font-weight: 600; margin: 0; font-size: 0.875rem;">${theme.name}</p>
                             </div>
                         `;

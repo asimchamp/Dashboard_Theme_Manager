@@ -73,7 +73,7 @@
                     </svg>
                 </button>
                 <div class="tm-profile-pic">
-                    <img src="${theme.image}" alt="${theme.name}" loading="lazy" />
+                    <img src="${theme.thumb}" alt="${theme.name}" loading="lazy" />
                 </div>
                 <div class="tm-card-bottom">
                     <div class="tm-bottom-content">
@@ -511,7 +511,10 @@
     // Initialize when DOM is ready - with delay to ensure RequireJS has loaded everything
     function delayedInit() {
         setTimeout(() => {
-            if (document.getElementById('categoryFilter') || document.getElementById('themeSearch')) {
+            const hasGalleryElements = document.getElementById('categoryFilter') || document.getElementById('themeSearch');
+            const hasCarouselElements = document.getElementById('theme-carousel-container') || document.getElementById('editor-pick-carousel-container');
+            
+            if (hasGalleryElements || hasCarouselElements) {
                 initThemeGallery();
             } else {
                 // Retry after a short delay if elements aren't ready yet

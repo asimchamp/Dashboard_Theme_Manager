@@ -9,9 +9,9 @@
     // Configuration
     const CONFIG = {
         metadataUrl: '/static/app/dashboard_theme_manager/themes_metadata.json',
-        cardsPerPage: 50,
-        enableLazyLoad: true,
-        enableVirtualScroll: true
+        cardsPerPage: 20,
+        enableLazyLoad: false,
+        enableVirtualScroll: false
     };
 
     // State
@@ -106,17 +106,35 @@
 
         // Render to grid (theme_dh.xml)
         if (container) {
-            const themesToRender = CONFIG.enableLazyLoad 
-                ? filteredThemes.slice(0, currentPage * CONFIG.cardsPerPage)
-                : filteredThemes;
+            // Pagination Logic
+            const startIndex = (currentPage - 1) * CONFIG.cardsPerPage;
+            const endIndex = Math.min(startIndex + CONFIG.cardsPerPage, filteredThemes.length);
+            const themesToRender = filteredThemes.slice(startIndex, endIndex);
             
-            container.innerHTML = themesToRender.map(buildThemeCard).join('');
-            attachCardEventListeners(container);
-
-            // Add lazy load trigger
-            if (CONFIG.enableLazyLoad && filteredThemes.length > currentPage * CONFIG.cardsPerPage) {
-                showLoadMoreButton(container);
+            // Auto-reset page if empty (e.g. filter changed)
+            if (themesToRender.length === 0 && filteredThemes.length > 0 && currentPage > 1) {
+                currentPage = 1;
+                renderThemeGallery();
+                return;
             }
+
+            if (themesToRender.length === 0) {
+                 container.innerHTML = `
+                    <div class="tm-table-empty" style="grid-column: 1/-1;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </svg>
+                        <p>No themes found matching your filters.</p>
+                    </div>
+                 `;
+            } else {
+                 container.innerHTML = themesToRender.map(buildThemeCard).join('');
+                 attachCardEventListeners(container);
+            }
+
+            // Update Pagination UI
+            updatePaginationUI();
         }
 
         // Render to carousel (home_dh.xml) - featured themes only
@@ -207,6 +225,37 @@
         container.querySelectorAll('.btn-details-theme').forEach(btn => {
             btn.addEventListener('click', handleThemeDetails);
         });
+    }
+
+    /**
+     * Update Pagination UI
+     */
+    function updatePaginationUI() {
+        const totalItems = filteredThemes.length;
+        const totalPages = Math.max(1, Math.ceil(totalItems / CONFIG.cardsPerPage));
+        
+        // Update Info Text
+        const infoEl = document.getElementById('paginationInfo');
+        if (infoEl) {
+            infoEl.textContent = `Page ${currentPage} of ${totalPages}`;
+        }
+
+        // Update Buttons
+        const btnFirst = document.getElementById('btnFirstPage');
+        const btnPrev = document.getElementById('btnPrevPage');
+        const btnNext = document.getElementById('btnNextPage');
+        const btnLast = document.getElementById('btnLastPage');
+
+        if (btnFirst) btnFirst.disabled = currentPage === 1;
+        if (btnPrev) btnPrev.disabled = currentPage === 1;
+        if (btnNext) btnNext.disabled = currentPage === totalPages;
+        if (btnLast) btnLast.disabled = currentPage === totalPages;
+        
+        // Ensure dropdown matches config
+        const rowsSelect = document.getElementById('rowsPerPage');
+        if (rowsSelect && parseInt(rowsSelect.value) !== CONFIG.cardsPerPage) {
+             rowsSelect.value = CONFIG.cardsPerPage;
+        }
     }
 
     /**
@@ -332,6 +381,58 @@
                 });
             }
         });
+
+        // Pagination Controls
+        const rowsPerPageSelect = document.getElementById('rowsPerPage');
+        if (rowsPerPageSelect) {
+            rowsPerPageSelect.addEventListener('change', (e) => {
+                CONFIG.cardsPerPage = parseInt(e.target.value);
+                currentPage = 1;
+                renderThemeGallery();
+            });
+        }
+
+        const btnFirst = document.getElementById('btnFirstPage');
+        if (btnFirst) {
+            btnFirst.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage = 1;
+                    renderThemeGallery();
+                }
+            });
+        }
+
+        const btnPrev = document.getElementById('btnPrevPage');
+        if (btnPrev) {
+            btnPrev.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderThemeGallery();
+                }
+            });
+        }
+
+        const btnNext = document.getElementById('btnNextPage');
+        if (btnNext) {
+            btnNext.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredThemes.length / CONFIG.cardsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderThemeGallery();
+                }
+            });
+        }
+
+        const btnLast = document.getElementById('btnLastPage');
+        if (btnLast) {
+            btnLast.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredThemes.length / CONFIG.cardsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage = totalPages;
+                    renderThemeGallery();
+                }
+            });
+        }
     }
 
     /**

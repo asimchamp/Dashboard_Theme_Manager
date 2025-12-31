@@ -2283,3 +2283,100 @@ body.dark-mode .tm-dashboard-item:hover {
 .tm-success p {
     margin: 0;
 }
+
+/* Shadcn-style Gallery Pagination */
+.tm-pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align to right like Shadcn */
+    padding: 1rem 0;
+    margin-top: 1rem;
+    gap: 2rem;
+    color: hsl(var(--tm-foreground));
+    font-size: 0.875rem;
+}
+
+.tm-pagination-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tm-pagination-label {
+    font-weight: 500;
+    color: hsl(var(--tm-muted-foreground));
+}
+
+.tm-select-wrapper {
+    position: relative;
+}
+
+.tm-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: hsl(var(--tm-background));
+    border: 1px solid hsl(var(--tm-border));
+    border-radius: 6px;
+    padding: 0.25rem 2rem 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    color: hsl(var(--tm-foreground));
+    cursor: pointer;
+    min-height: 32px;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+}
+
+.tm-select:focus {
+    outline: none;
+    border-color: hsl(var(--tm-ring));
+    box-shadow: 0 0 0 2px hsl(var(--tm-ring) / 0.2);
+}
+
+.tm-pagination-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.tm-pagination-info {
+    font-weight: 500;
+    min-width: 80px;
+    text-align: center;
+}
+
+.tm-pagination-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tm-pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid hsl(var(--tm-border));
+    background-color: transparent;
+    color: hsl(var(--tm-foreground));
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tm-pagination-btn:hover:not(:disabled) {
+    background-color: hsl(var(--tm-accent));
+    color: hsl(var(--tm-accent-foreground));
+}
+
+.tm-pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.dashboard-container.dark .tm-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+}

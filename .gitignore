@@ -1,2 +1,3 @@
 # Blacklist a folder named:
 .vscode/
+.cursorrules.json

@@ -175,24 +175,29 @@ body[data-theme="dark"] {
     font-weight: 700;
     letter-spacing: -0.01em;
     color: hsl(var(--tm-foreground));
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    padding-bottom: 2px;
+    border-bottom: 2px solid hsl(var(--tm-foreground)); /* The horizontal divider line */
+    display: inline-block; /* Ensure border fits text width */
+    line-height: 1;
 }
 
 .tm-brand-accent {
-    color: #CE352C; /* Official Splunk Orange/Red Accent */
+    color: #65A637; /* Official Splunk Green */
     font-weight: 700;
 }
 
-/* Adjust accent for dark mode if needed, or keep orange as it pops on both */
+/* Adjust accent for dark mode */
 body[data-theme="dark"] .tm-brand-accent {
-    color: #F55D42; /* Slightly brighter orange for dark mode */
+    color: #65A637; /* Keep green in dark mode too */
 }
 
 .tm-logo-app {
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: hsl(var(--tm-muted-foreground));
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: hsl(var(--tm-foreground));
     letter-spacing: 0.02em;
+    line-height: 1.2;
 }
 
 /* Collapsed Logo State */

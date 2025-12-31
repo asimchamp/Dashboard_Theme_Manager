@@ -1,4 +1,4 @@
-<form version="1.1" theme="light">
+<form version="1.1" theme="dark">
   <label>Asim Akram</label>
   <description>Provides cost transparency and operational visibility into AWS Glue job executions.</description>
   <search id="base_logic">
@@ -372,8 +372,8 @@ index="$indx_tok$"
         <option name="count">10</option>
         <option name="drilldown">none</option>
         <format type="color" field="Job_Cost">
-          <colorPalette type="minMidMax" maxColor="#DC4E41" minColor="#FFFFFF"></colorPalette>
-          <scale type="minMidMax"></scale>
+          <colorPalette type="minMidMax" maxColor="#DC4E41" minColor="#FFFFFF" />
+          <scale type="minMidMax" />
         </format>
       </table>
     </panel>
@@ -397,10 +397,10 @@ index="$indx_tok$"
           <colorPalette type="map">{"SUCCEEDED":#53A051,"FAILED":#DC4E41,"TIMEOUT":#F8BE34,"STOPPED":#F1813F}</colorPalette>
         </format>
         <format type="color" field="Job_Cost">
-          <colorPalette type="minMidMax" maxColor="#D93F3C" minColor="#FFFFFF"></colorPalette>
-          <scale type="minMidMax"></scale>
+          <colorPalette type="minMidMax" maxColor="#D93F3C" minColor="#FFFFFF" />
+          <scale type="minMidMax" />
         </format>
       </table>
     </panel>
   </row>
-<row><panel ref="dhm_dashboard_origami_clouds" app="dashboard_theme_manager" depends="$alwaysHideCSS$"></panel></row></form>
+<row><panel ref="dhm_dashboard_crimson_ops" app="dashboard_theme_manager" depends="$alwaysHideCSS$" ></panel></row></form>

@@ -11,3 +11,7 @@ modtime = 1766828863.899432000
 [panels/dhm_dashboard_origami_clouds]
 version = 9.4.3
 modtime = 1766829598.956320000
+
+[nav/default]
+version = 9.4.3
+modtime = 1767182300.222462000

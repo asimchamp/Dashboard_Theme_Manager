@@ -8,6 +8,9 @@ require([
 
     const Utils = {
         currentThemeId: null,
+        currentTablePage: 1,
+        rowsPerTablePage: 5,
+        allDashboards: [],  // Store all dashboards for pagination
 
         init: function () {
             this.loadThemeMetadata(); // Load theme names from JSON
@@ -159,8 +162,11 @@ require([
                         }
                     });
 
-                    // Render table
-                    self.renderDashboardTable(themedDashboards);
+                    // Store all dashboards for pagination
+                    self.allDashboards = themedDashboards;
+
+                    // Render table with pagination
+                    self.renderDashboardTable();
 
                     // Render top themes
                     self.renderTopThemes(themeCounts);
@@ -172,9 +178,10 @@ require([
             });
         },
 
-        renderDashboardTable: function(dashboards) {
+        renderDashboardTable: function() {
             const self = this;
             const wrapper = $('#dashboard-table-wrapper');
+            const dashboards = self.allDashboards;
 
             if (dashboards.length === 0) {
                 wrapper.html(`
@@ -191,6 +198,12 @@ require([
                 return;
             }
 
+            // Pagination logic
+            const totalPages = Math.ceil(dashboards.length / self.rowsPerTablePage);
+            const startIndex = (self.currentTablePage - 1) * self.rowsPerTablePage;
+            const endIndex = Math.min(startIndex + self.rowsPerTablePage, dashboards.length);
+            const paginatedDashboards = dashboards.slice(startIndex, endIndex);
+
             let tableHTML = `
                 <table class="tm-dashboard-table">
                     <thead>
@@ -206,7 +219,7 @@ require([
                     <tbody>
             `;
 
-            dashboards.forEach((dash, index) => {
+            paginatedDashboards.forEach((dash, index) => {
                 const themeName = self.getThemeNameById(dash.themeId);
                 tableHTML += `
                     <tr>
@@ -266,18 +279,64 @@ require([
                     </tbody>
                 </table>
                 <div class="tm-table-footer">
-                    <div class="tm-table-selected-info">0 of ${dashboards.length} row(s) selected.</div>
+                    <div class="tm-table-footer-left">
+                        <div class="tm-table-selected-info">0 of ${paginatedDashboards.length} row(s) selected.</div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-left: 1rem;">
+                            <span style="font-size: 0.875rem; color: hsl(var(--tm-muted-foreground));">Rows per page</span>
+                            <select id="tableRowsPerPage" style="padding: 0.25rem 0.5rem; border: 1px solid hsl(var(--tm-border)); border-radius: var(--tm-radius); background: hsl(var(--tm-background)); color: hsl(var(--tm-foreground));">
+                                <option value="5" ${self.rowsPerTablePage === 5 ? 'selected' : ''}>5</option>
+                                <option value="10" ${self.rowsPerTablePage === 10 ? 'selected' : ''}>10</option>
+                                <option value="20" ${self.rowsPerTablePage === 20 ? 'selected' : ''}>20</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="tm-table-pagination">
-                        <span class="tm-table-pagination-info">Page 1 of 1</span>
+                        <span class="tm-table-pagination-info">Page ${self.currentTablePage} of ${totalPages}</span>
                         <div class="tm-table-pagination-controls">
-                            <button class="tm-table-pagination-btn" disabled>Previous</button>
-                            <button class="tm-table-pagination-btn" disabled>Next</button>
+                            <button class="tm-table-pagination-btn" id="btnTableFirst" ${self.currentTablePage === 1 ? 'disabled' : ''}>First</button>
+                            <button class="tm-table-pagination-btn" id="btnTablePrev" ${self.currentTablePage === 1 ? 'disabled' : ''}>Previous</button>
+                            <button class="tm-table-pagination-btn" id="btnTableNext" ${self.currentTablePage === totalPages ? 'disabled' : ''}>Next</button>
+                            <button class="tm-table-pagination-btn" id="btnTableLast" ${self.currentTablePage === totalPages ? 'disabled' : ''}>Last</button>
                         </div>
                     </div>
                 </div>
             `;
 
             wrapper.html(tableHTML);
+
+            // Bind pagination controls
+            $('#tableRowsPerPage').on('change', function() {
+                self.rowsPerTablePage = parseInt($(this).val());
+                self.currentTablePage = 1; // Reset to first page
+                self.renderDashboardTable();
+            });
+
+            $('#btnTableFirst').on('click', function() {
+                self.currentTablePage = 1;
+                self.renderDashboardTable();
+            });
+
+            $('#btnTablePrev').on('click', function() {
+                if (self.currentTablePage > 1) {
+                    self.currentTablePage--;
+                    self.renderDashboardTable();
+                }
+            });
+
+            $('#btnTableNext').on('click', function() {
+                const totalPages = Math.ceil(dashboards.length / self.rowsPerTablePage);
+                if (self.currentTablePage < totalPages) {
+                    self.currentTablePage++;
+                    self.renderDashboardTable();
+                }
+            });
+
+            $('#btnTableLast').on('click', function() {
+                const totalPages = Math.ceil(dashboards.length / self.rowsPerTablePage);
+                self.currentTablePage = totalPages;
+                self.renderDashboardTable();
+            });
+
 
             // Bind dropdown toggle
             wrapper.find('.tm-table-dropdown-trigger').on('click', function(e) {

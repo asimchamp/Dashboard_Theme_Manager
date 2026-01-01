@@ -1,6 +1,6 @@
 # Splunk Theme Manager
 
-![Splunk Theme Manager Logo](static/appLogo_2x.png)
+                          ![Splunk Theme Manager Logo](static/appLogo_2x.png)
 
 **Elevate your Splunk Dashboards with Premium, Professional Themes.**
 

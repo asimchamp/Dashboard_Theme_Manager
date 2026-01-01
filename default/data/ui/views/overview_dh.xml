@@ -650,7 +650,7 @@
                         </div>
                         <div style="margin-top: 2rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; color: #94a3b8; font-size: 0.9rem;">
                             <div>✓ Free &amp; Open Source</div>
-                            <div>✓ 26+ Premium Themes</div>
+                            <div>✓ 25+ Premium Themes</div>
                             <div>✓ One-Click Install</div>
                             <div>✓ No Configuration</div>
                         </div>
@@ -689,7 +689,7 @@
                         <h4>Support</h4>
                         <div class="footer-menu">
                             <a href="https://github.com/asimchamp" target="_blank">GitHub</a>
-                            <a href="#docs">Documentation</a>
+                            <a href="https://github.com/asimchamp/Dashboard_Theme_Manager/blob/main/README.md">Documentation</a>
                             <a href="https://github.com/asimchamp/dashboard_theme_manager/issues" target="_blank">Report Issue</a>
                             <a href="#features">Features</a>
                         </div>

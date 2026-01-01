@@ -1,6 +1,8 @@
 # Splunk Theme Manager
 
-![Splunk Theme Manager Logo](static/appLogo_2x.png)
+<div align="center">
+  <img src="static/appLogo_2x.png" alt="Splunk Theme Manager Logo" />
+</div>
 
 **Elevate your Splunk Dashboards with Premium, Professional Themes.**
 

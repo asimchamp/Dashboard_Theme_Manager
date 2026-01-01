@@ -193,7 +193,7 @@
                     <div class="fade-in-up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 2rem; text-align: center;">
                         <!-- Stat 1 -->
                         <div class="glass glass-card" style="padding: 2rem;">
-                            <div style="font-size: 3rem; font-weight: 700; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;">26+</div>
+                            <div style="font-size: 3rem; font-weight: 700; background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;">25+</div>
                             <div style="color: #94a3b8; font-size: 1rem;">Premium Themes</div>
                         </div>
                         <!-- Stat 2 -->
@@ -533,7 +533,7 @@
                                 <div style="background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent)); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem;">2</div>
                                 <h3 style="font-size: 1.25rem; margin: 0;">Browse Themes</h3>
                             </div>
-                            <p style="color: #94a3b8; margin-bottom: 1rem;">Navigate to the Theme Gallery and explore 26+ professionally designed themes</p>
+                            <p style="color: #94a3b8; margin-bottom: 1rem;">Navigate to the Theme Gallery and explore 25+ professionally designed themes</p>
                             <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #38bdf8;">
                                 Apps → Theme Manager → Gallery
                             </div>
@@ -650,7 +650,7 @@
                         </div>
                         <div style="margin-top: 2rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; color: #94a3b8; font-size: 0.9rem;">
                             <div>✓ Free &amp; Open Source</div>
-                            <div>✓ 26+ Premium Themes</div>
+                            <div>✓ 25+ Premium Themes</div>
                             <div>✓ One-Click Install</div>
                             <div>✓ No Configuration</div>
                         </div>
@@ -689,7 +689,7 @@
                         <h4>Support</h4>
                         <div class="footer-menu">
                             <a href="https://github.com/asimchamp" target="_blank">GitHub</a>
-                            <a href="#docs">Documentation</a>
+                            <a href="https://github.com/asimchamp/Dashboard_Theme_Manager/blob/main/README.md">Documentation</a>
                             <a href="https://github.com/asimchamp/dashboard_theme_manager/issues" target="_blank">Report Issue</a>
                             <a href="#features">Features</a>
                         </div>

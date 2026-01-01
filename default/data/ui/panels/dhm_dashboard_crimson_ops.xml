@@ -191,13 +191,13 @@
 
             /* Watermark */
             .dashboard-body::after {
-                content: "SYSTEM: ONLINE // MONITORING ACTIVE";
+                content: "Splunk Theme Manager";
                 position: fixed;
                 bottom: 20px;
                 right: 20px;
-                color: rgba(255, 255, 255, 0.05);
+                color: rgba(255, 255, 255, 0.22);
                 font-family: var(--font-tactical);
-                font-size: 70px;
+                font-size: 35px;
                 font-weight: 900;
                 line-height: 0.8;
                 pointer-events: none;

@@ -3,7 +3,11 @@
  * Scales to 1000+ themes with filtering, search, and lazy loading
  */
 
-(function() {
+require([
+    'jquery',
+    'splunkjs/mvc',
+    'splunkjs/mvc/simplexml/ready!'
+], function($, mvc) {
     'use strict';
 
     // Configuration
@@ -22,14 +26,217 @@
         category: 'all',
         search: ''
     };
-    let favorites = JSON.parse(localStorage.getItem('theme_favorites') || '[]');
+    let favorites = [];
     let currentPage = 1;
+    let favoritesLoaded = false;
+    let themesLoaded = false;
+
+    /**
+     * Load favorites from user-prefs.conf
+     */
+    function loadFavorites() {
+        console.log('[Theme Gallery] Loading favorites...');
+        
+        let sdkAttempted = false;
+        
+        // Timeout fallback - render page even if favorites fail to load
+        const timeoutId = setTimeout(function() {
+            if (!favoritesLoaded) {
+                console.warn('[Theme Gallery] Favorites loading timeout - proceeding with empty favorites');
+                favorites = [];
+                favoritesLoaded = true;
+                renderThemeGallery();
+            }
+        }, 3000); // 3 second timeout
+        
+        // Function to handle successful load
+        function onLoadSuccess(favoritesStr) {
+            clearTimeout(timeoutId);
+            favorites = favoritesStr ? favoritesStr.split(',').filter(Boolean) : [];
+            console.log('[Theme Gallery] Loaded favorites:', favorites);
+            favoritesLoaded = true;
+            renderThemeGallery();
+        }
+        
+        // Try SDK method first
+        try {
+            const service = mvc.createService({ app: 'dashboard_theme_manager' });
+            sdkAttempted = true;
+            
+            service.request(
+                'configs/conf-user-prefs/theme_favorites',
+                'GET',
+                { output_mode: 'json' },
+                null,
+                null,
+                function(err, res) {
+                    if (favoritesLoaded) return; // Already loaded via fallback
+                    
+                    if (err) {
+                        console.warn('[Theme Gallery] SDK error:', err);
+                        tryAjaxFallback();
+                        return;
+                    }
+                    
+                    try {
+                        const entry = res && res.data && res.data.entry && res.data.entry[0];
+                        const content = entry && entry.content ? entry.content : {};
+                        onLoadSuccess(content.favorites || '');
+                    } catch (error) {
+                        console.error('[Theme Gallery] Parse error:', error);
+                        tryAjaxFallback();
+                    }
+                }
+            );
+        } catch (error) {
+            console.error('[Theme Gallery] SDK initialization failed:', error);
+            tryAjaxFallback();
+        }
+        
+        // AJAX fallback function
+        function tryAjaxFallback() {
+            if (favoritesLoaded) return;
+            
+            console.log('[Theme Gallery] Trying AJAX fallback...');
+            
+            // Get current username dynamically
+            const service = mvc.createService();
+            const username = service.username || 
+                           Splunk?.util?.getConfigValue?.('USERNAME') || 
+                           $C?.USERNAME || 
+                           'admin';
+            
+            $.ajax({
+                url: `/splunkd/__raw/servicesNS/${username}/dashboard_theme_manager/configs/conf-user-prefs/theme_favorites?output_mode=json`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (favoritesLoaded) return;
+                    
+                    try {
+                        if (response.entry && response.entry.length > 0) {
+                            const content = response.entry[0].content;
+                            onLoadSuccess(content.favorites || '');
+                        } else {
+                            onLoadSuccess('');
+                        }
+                    } catch (error) {
+                        console.error('[Theme Gallery] AJAX parse error:', error);
+                        clearTimeout(timeoutId);
+                        favorites = [];
+                        favoritesLoaded = true;
+                        renderThemeGallery();
+                    }
+                },
+                error: function(xhr) {
+                    if (favoritesLoaded) return;
+                    console.warn('[Theme Gallery] AJAX failed:', xhr.status, xhr.statusText);
+                    clearTimeout(timeoutId);
+                    favorites = [];
+                    favoritesLoaded = true;
+                    renderThemeGallery();
+                }
+            });
+        }
+        
+        // Start AJAX fallback after 1 second if SDK hasn't responded
+        setTimeout(function() {
+            if (!favoritesLoaded && sdkAttempted) {
+                console.log('[Theme Gallery] SDK taking too long, trying AJAX fallback...');
+                tryAjaxFallback();
+            }
+        }, 1000);
+    }
+
+    /**
+     * Save favorites to user-prefs.conf
+     */
+    function saveFavorites() {
+        const favoritesString = favorites.join(',');
+        
+        console.log('[Theme Gallery] Saving favorites:', favorites);
+        console.log('[Theme Gallery] Favorites string:', favoritesString);
+        
+        // Update UI immediately (optimistic update)
+        renderThemeGallery();
+        
+        // Get current username
+        const service = mvc.createService({ app: 'dashboard_theme_manager' });
+        const username = service.username || 
+                       Splunk?.util?.getConfigValue?.('USERNAME') || 
+                       $C?.USERNAME || 
+                       'admin';
+        
+        let sdkSaveAttempted = false;
+        let saveDone = false;
+        
+        // Try SDK method first
+        try {
+            sdkSaveAttempted = true;
+            const payload = { favorites: favoritesString };
+            
+            service.request(
+                'configs/conf-user-prefs/theme_favorites',
+                'POST',
+                { output_mode: 'json' },
+                payload,
+                null,
+                function(err, res) {
+                    if (saveDone) return;
+                    saveDone = true;
+                    
+                    if (err) {
+                        console.error('[Theme Gallery] SDK save failed:', err);
+                        tryAjaxSave();
+                        return;
+                    }
+                    
+                    console.log('[Theme Gallery] Favorites saved successfully via SDK');
+                    setTimeout(loadFavorites, 1000);
+                }
+            );
+        } catch (error) {
+            console.error('[Theme Gallery] SDK save error:', error);
+            tryAjaxSave();
+        }
+        
+        // AJAX fallback after 1 second
+        setTimeout(function() {
+            if (!saveDone && sdkSaveAttempted) {
+                console.log('[Theme Gallery] SDK save taking too long, trying AJAX...');
+                tryAjaxSave();
+            }
+        }, 1000);
+        
+        function tryAjaxSave() {
+            if (saveDone) return;
+            
+            $.ajax({
+                url: `/splunkd/__raw/servicesNS/${username}/dashboard_theme_manager/configs/conf-user-prefs/theme_favorites`,
+                type: 'POST',
+                data: { favorites: favoritesString },
+                success: function() {
+                    if (saveDone) return;
+                    saveDone = true;
+                    console.log('[Theme Gallery] Favorites saved successfully via AJAX');
+                    setTimeout(loadFavorites, 1000);
+                },
+                error: function(xhr) {
+                    if (saveDone) return;
+                    saveDone = true;
+                    console.error('[Theme Gallery] AJAX save failed:', xhr.status, xhr.statusText);
+                    loadFavorites(); // Reload to restore state
+                }
+            });
+        }
+    }
 
     /**
      * Initialize the theme gallery
      */
     function initThemeGallery() {
         console.log('[Theme Gallery] Initializing...');
+        loadFavorites(); // Load favorites first
         loadThemeMetadata();
         setupEventListeners();
     }
@@ -43,6 +250,7 @@
             .then(data => {
                 allThemes = data.themes || [];
                 filteredThemes = [...allThemes];
+                themesLoaded = true;
                 console.log(`[Theme Gallery] Loaded ${allThemes.length} themes`);
                 renderThemeGallery();
                 updateThemeCount();
@@ -57,17 +265,19 @@
      * Build HTML for a single theme card
      */
     function buildThemeCard(theme) {
-        const isFavorite = favorites.includes(theme.id);
-        const heartPath = isFavorite
-            ? 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'
-            : 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z';
+        // Trim theme ID and favorites for comparison
+        const themeId = (theme.id || '').trim();
+        const trimmedFavorites = favorites.map(f => f.trim());
+        const isFavorite = trimmedFavorites.includes(themeId);
+        
+        const heartPath = 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z';
         const heartFill = isFavorite ? 'currentColor' : 'none';
 
         return `
-            <div class="tm-card-box" data-theme-id="${theme.id}" data-order="${theme.order}">
+            <div class="tm-card-box" data-theme-id="${themeId}" data-order="${theme.order}">
                 <span class="tm-card-mode">${theme.mode}</span>
                 <span class="tm-card-category">${theme.category}</span>
-                <button class="tm-favorite-btn" data-theme-id="${theme.id}" aria-label="Toggle favorite">
+                <button class="tm-favorite-btn ${isFavorite ? 'is-favorite' : ''}" data-theme-id="${themeId}" aria-label="Toggle favorite">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="${heartFill}" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="${heartPath}"></path>
                     </svg>
@@ -81,8 +291,8 @@
                         <span class="tm-box-desc">${theme.description}</span>
                     </div>
                     <div class="tm-bottom-footer">
-                        <button class="tm-btn-small btn-details-theme" data-theme-id="${theme.id}">Details</button>
-                        <button class="tm-btn-small btn-use-theme" data-theme-id="${theme.id}">Use Theme</button>
+                        <button class="tm-btn-small btn-details-theme" data-theme-id="${themeId}">Details</button>
+                        <button class="tm-btn-small btn-use-theme" data-theme-id="${themeId}">Use Theme</button>
                     </div>
                 </div>
             </div>
@@ -93,6 +303,12 @@
      * Render the theme gallery
      */
     function renderThemeGallery() {
+        // Don't render until both themes and favorites are loaded
+        if (!themesLoaded || !favoritesLoaded) {
+            console.log('[Theme Gallery] Waiting for data to load... (themes:', themesLoaded, ', favorites:', favoritesLoaded, ')');
+            return;
+        }
+        
         const container = document.getElementById('theme-gallery-container');
         const carouselContainer = document.getElementById('theme-carousel-container');
         
@@ -448,8 +664,8 @@
             favorites.push(themeId);
         }
         
-        localStorage.setItem('theme_favorites', JSON.stringify(favorites));
-        renderThemeGallery();
+        // Save to Splunk user-prefs (this will re-render after save completes)
+        saveFavorites();
     }
 
     /**
@@ -648,4 +864,4 @@
         }
     };
 
-})();
+});

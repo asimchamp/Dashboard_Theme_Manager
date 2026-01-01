@@ -1307,6 +1307,12 @@
     transition: all 0.2s ease;
 }
 
+/* Favorited state - filled heart */
+.tm-card-box .tm-favorite-btn.is-favorite svg {
+    fill: #f55d56;
+    stroke: #f55d56;
+}
+
 .tm-card-box .tm-favorite-btn:hover svg {
     stroke: #f55d56;
     fill: #f55d56;
@@ -1315,6 +1321,12 @@
 
 .dashboard-container.dark .tm-card-box .tm-favorite-btn svg {
     stroke: #f87171;
+}
+
+/* Favorited state - dark mode */
+.dashboard-container.dark .tm-card-box .tm-favorite-btn.is-favorite svg {
+    fill: #dc2626;
+    stroke: #dc2626;
 }
 
 .dashboard-container.dark .tm-card-box .tm-favorite-btn:hover svg {

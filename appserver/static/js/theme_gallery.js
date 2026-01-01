@@ -371,6 +371,40 @@ require([
             attachCardEventListeners(carouselContainer);
         }
 
+        // Render to Favorites carousel (home_dh.xml)
+        const favoritesContainer = document.getElementById('favorites-carousel-container');
+        if (favoritesContainer) {
+            const trimmedFavorites = favorites.map(f => f.trim());
+            const favoriteThemes = allThemes.filter(t => trimmedFavorites.includes(t.id.trim()));
+            
+            if (favoriteThemes.length > 0) {
+                const favoritesHTML = favoriteThemes.map(buildThemeCard).join('');
+                
+                // Add arrow to carousel
+                const arrowHTML = `
+                    <a href="theme_dh" class="tm-carousel-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+                `;
+                
+                favoritesContainer.innerHTML = favoritesHTML + arrowHTML;
+                attachCardEventListeners(favoritesContainer);
+            } else {
+                // Show empty state if no favorites
+                favoritesContainer.innerHTML = `
+                    <div class="tm-table-empty" style="padding: 3rem; text-align: center; grid-column: 1/-1;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.3; margin-bottom: 1rem;">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        <p style="color: var(--text-secondary); margin: 0;">No favorites yet. Click the ♡ icon on themes to add them here!</p>
+                    </div>
+                `;
+            }
+        }
+
+
         // Render to Editor Pick carousel (home_dh.xml)
         const editorContainer = document.getElementById('editor-pick-carousel-container');
         if (editorContainer) {

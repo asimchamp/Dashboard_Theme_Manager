@@ -497,7 +497,7 @@
       "order": 28,
       "featured": true,
       "editor": 0,
-      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_plasma_storm.png",
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_glassmorphism.png",
       "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_plasma_storm.png",
       "features": [
         "Animated Particle System Background",

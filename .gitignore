@@ -4,3 +4,8 @@
 .DS_Store
 app_build.sh
 splunkbase/
+
+# Python bytecode (not allowed on Splunkbase)
+*.pyc
+*.pyo
+__pycache__/

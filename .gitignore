@@ -1,3 +1,5 @@
 # Blacklist a folder named:
 .vscode/
 .cursorrules.json
+.DS_Store
+app_build.sh

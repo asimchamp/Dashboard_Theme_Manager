@@ -615,8 +615,18 @@ require([
             const modalHTML = `
                 <div class="tm-progress-overlay" id="progressModal">
                     <div class="tm-progress-modal">
+                        <button class="tm-progress-close" id="btnProgressX">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
                         <div class="tm-progress-steps">
                             ${stepsHTML}
+                        </div>
+                        <div class="tm-progress-actions">
+                            <button class="tm-btn tm-btn-outline" id="btnProgressBack">Back</button>
+                            <!-- View Dashboard button will be appended here dynamically -->
                         </div>
                     </div>
                 </div>
@@ -624,6 +634,13 @@ require([
 
             $('#progressModal').remove();
             $('body').append(modalHTML);
+
+            // Bind events for buttons
+            $('#btnProgressX, #btnProgressBack').on('click', function() {
+                $('#progressModal').fadeOut(200, function() {
+                    $(this).remove();
+                });
+            });
         },
 
         updateProgressStep: function(stepIndex, status) {
@@ -940,15 +957,13 @@ require([
                             
                             // Wait a bit to show completed state, then show view option
                             setTimeout(() => {
-                                // Add View button to completed modal
+                                // Add View button to the existing footer
                                 const viewBtn = `
-                                    <div class="tm-progress-actions">
-                                        <button class="tm-table-btn tm-table-btn-primary" id="progressViewBtn">
-                                            View Dashboard →
-                                        </button>
-                                    </div>
+                                    <button class="tm-table-btn tm-table-btn-primary" id="progressViewBtn">
+                                        View Dashboard →
+                                    </button>
                                 `;
-                                $('.tm-progress-modal').append(viewBtn);
+                                $('.tm-progress-modal .tm-progress-actions').append(viewBtn);
                                 
                                 $('#progressViewBtn').on('click', function() {
                                     window.open(`/app/${sourceApp}/${dashboardName}`, '_blank');

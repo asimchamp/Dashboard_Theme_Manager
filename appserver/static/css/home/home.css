@@ -105,7 +105,8 @@
 }
 
 /* Dark Mode Override */
-.dashboard-container.dark {
+.dashboard-container.dark,
+body.dark-mode {
     --tm-background: 240 10% 3.9%;
     --tm-foreground: 0 0% 98%;
     --tm-card: 240 10% 3.9%;
@@ -820,12 +821,50 @@
 
 .tm-progress-modal {
     background: hsl(var(--tm-card));
+    color: hsl(var(--tm-foreground));
+    border: 1px solid hsl(var(--tm-border));
     border-radius: var(--tm-radius);
     padding: 2.5rem;
     width: 90%;
     max-width: 500px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative; /* Added for absolute positioning of close button */
+}
+
+/* Dark mode specific override just in case variables fail to cascade */
+body.dark-mode .tm-progress-modal {
+    background-color: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+/* Close X Button */
+.tm-progress-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: hsl(var(--tm-muted-foreground));
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.2s;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tm-progress-close:hover {
+    background: hsl(var(--tm-muted));
+    color: hsl(var(--tm-foreground));
+}
+
+.tm-progress-close svg {
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
 .tm-progress-steps {
@@ -928,7 +967,8 @@
     padding-top: 1.5rem;
     border-top: 1px solid hsl(var(--tm-border));
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between; /* Changed to space-between for Back/View separation */
+    align-items: center;
     gap: 0.75rem;
 }
 
@@ -2097,8 +2137,8 @@ body.dark-mode .tm-stepper-button-primary:hover:not(:disabled) {
 }
 
 .tm-modal {
-    background-color: #ffffff;
-    color: #0f172a;
+    background-color: hsl(var(--tm-card));
+    color: hsl(var(--tm-foreground));
     border-radius: 12px;
     max-width: 700px;
     width: 90%;
@@ -2106,15 +2146,15 @@ body.dark-mode .tm-stepper-button-primary:hover:not(:disabled) {
     display: flex;
     flex-direction: column;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-    border: 1px solid #e5e7eb;
+    border: 1px solid hsl(var(--tm-border));
 }
 
-/* Dark mode modal */
+/* Dark mode modal override - redundant if variables work, but kept for safety */
 .dashboard-container.dark .tm-modal,
 body.dark-mode .tm-modal {
-    background-color: #1e293b;
-    color: #f1f5f9;
-    border-color: #334155;
+    background-color: hsl(var(--tm-card));
+    color: hsl(var(--tm-foreground));
+    border-color: hsl(var(--tm-border));
 }
 
 .tm-modal-header {
@@ -2127,14 +2167,14 @@ body.dark-mode .tm-modal {
 
 .dashboard-container.dark .tm-modal-header,
 body.dark-mode .tm-modal-header {
-    border-bottom-color: #334155;
+    border-bottom-color: hsl(var(--tm-border));
 }
 
 .tm-modal-header h2 {
     margin: 0;
     font-size: 1.5rem;
     font-weight: 600;
-    color: #0f172a;
+    color: hsl(var(--tm-foreground));
 }
 
 .dashboard-container.dark .tm-modal-header h2,
@@ -2205,10 +2245,10 @@ body.dark-mode .tm-modal-body p {
     align-items: center;
     gap: 0.5rem;
     padding: 1.25rem 1rem;
-    border: 2px solid #e5e7eb;
+    border: 2px solid hsl(var(--tm-border));
     border-radius: 0.5rem;
-    background-color: #f8fafc;
-    color: #0f172a;
+    background-color: hsl(var(--tm-muted) / 0.3);
+    color: hsl(var(--tm-foreground));
     cursor: pointer;
     transition: all 0.2s ease;
     font-size: 0.875rem;
@@ -2217,24 +2257,25 @@ body.dark-mode .tm-modal-body p {
     min-height: 100px;
 }
 
+/* Dark mode override - redundant with variables but kept for safety */
 .dashboard-container.dark .tm-dashboard-item,
 body.dark-mode .tm-dashboard-item {
-    background-color: #1e293b;
-    color: #f1f5f9;
-    border-color: #334155;
+    background-color: hsl(var(--tm-muted) / 0.3);
+    color: hsl(var(--tm-foreground));
+    border-color: hsl(var(--tm-border));
 }
 
 .tm-dashboard-item:hover {
-    border-color: #3b82f6;
-    background-color: #eff6ff;
+    border-color: hsl(var(--tm-primary));
+    background-color: hsl(var(--tm-accent));
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-container.dark .tm-dashboard-item:hover,
 body.dark-mode .tm-dashboard-item:hover {
-    border-color: #60a5fa;
-    background-color: #1e293b;
+    border-color: hsl(var(--tm-primary));
+    background-color: hsl(var(--tm-accent));
 }
 
 .tm-dashboard-item svg {

@@ -106,6 +106,56 @@
     opacity: 0.9;
   }
 
+          /* Watermark for the dark theme */
+         body::before {
+            content: "";
+            display: block;
+            position: fixed;
+            bottom: 7px;
+            right: 170px;
+            width: 50px;
+            height: 50px;
+            background-image: url('data:image/svg+xml;utf8,\
+%3Csvg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"%3E\
+%3Cpath d="M16 2L2 9L16 16L30 9L16 2Z" fill="%23ffffff" fill-opacity="0.22" /%3E\
+%3Cpath d="M2 23L16 30L30 23" stroke="%23ffffff" stroke-opacity="0.22" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /%3E\
+%3Cpath d="M2 16L16 23L30 16" stroke="%23ffffff" stroke-opacity="0.22" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /%3E\
+%3C/svg%3E');
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            animation: watermarkSlideIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-delay: 1s;
+         }
+
+         body::after {
+            content: "splunk\003E\A───────────\ATheme Manager";
+            display: block;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            color: rgba(255, 255, 255, 0.22);
+            font-family: 'Splunk Platform Sans', 'Proxima Nova', Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 0.7;
+            pointer-events: none;
+            z-index: 9999;
+            text-align: left;
+            white-space: pre;
+            opacity: 0;
+            animation: watermarkSlideIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-delay: 1.2s; /* Slight delay for text after logo */
+            letter-spacing: -0.01em;
+         }
+
+         @keyframes watermarkSlideIn {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+         } 
+
   /* =========================================
      INPUTS and FILTERS
      ========================================== */

@@ -103,7 +103,7 @@
          }
 
          body::after {
-            content: "splunk\003E\A───────────\ATheme Manager";
+            content: "Dashboard\003E\A───────────\ATheme Manager";
             display: block;
             position: fixed;
             bottom: 10px;

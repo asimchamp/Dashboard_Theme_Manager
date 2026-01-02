@@ -94,7 +94,7 @@
                 <nav>
                   <div class="container nav-content">
                     <a href="#" class="logo">
-                        <span>Splunk Theme</span> Manager
+                        <span>Dashboard</span>Theme Manager
                     </a>
                     <div class="nav-links">
                       <a href="#features">Features</a>
@@ -110,7 +110,7 @@
                     <div class="hero-content" data-speed="0.5">
                       <h1>Unlock the Power of <br /><span>Custom Dashboards</span></h1>
                       <p>
-                        Splunk Theme Manager gives you granular control over your Splunk
+                        Dashboard Theme Manager gives you granular control over your Splunk
                         Dashboards. Apply stunning themes, manage CSS assets, and transform
                         your data visualization experience.
                       </p>
@@ -145,7 +145,7 @@
                 <section id="features" class="container">
                   <div class="fade-in-up">
                     <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 1rem">
-                      Why Splunk Theme Manager?
+                      Why Dashboard Theme Manager?
                     </h2>
                     <p
                       style="
@@ -404,7 +404,7 @@
                       <div class="step-number">03</div>
                       <h3>Apply and Deploy</h3>
                       <p style="color: #94a3b8">
-                        Hit apply and Splunk Theme Manager handles the heavy lifting—injecting CSS,
+                        Hit apply and Dashboard Theme Manager handles the heavy lifting—injecting CSS,
                         updating XML, and refreshing the view.
                       </p>
                     </div>
@@ -469,7 +469,7 @@
                     <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
                         <!-- Testimonial 1 -->
                         <div class="glass glass-card fade-in-up">
-                            <p style="font-style: italic; color: #cbd5e1;">"Splunk Theme Manager completely transformed how our SOC team interacts with Splunk. The dark mode themes are a lifesaver for night shifts."</p>
+                            <p style="font-style: italic; color: #cbd5e1;">"Dashboard Theme Manager completely transformed how our SOC team interacts with Splunk. The dark mode themes are a lifesaver for night shifts."</p>
                             <div class="testimonial-author">
                                 <div class="avatar"></div>
                                 <div>
@@ -510,7 +510,7 @@
                     <div class="fade-in-up">
                         <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 1rem;">Quick Start Guide</h2>
                         <p style="text-align: center; color: #94a3b8; max-width: 600px; margin: 0 auto 3rem;">
-                            Get started with Splunk Theme Manager in minutes
+                            Get started with Dashboard Theme Manager in minutes
                         </p>
                     </div>
                     
@@ -561,11 +561,11 @@
                     <div class="faq-grid fade-in-up">
                         <div class="glass glass-card faq-item">
                             <div class="faq-question">
-                                Is Splunk Theme Manager compatible with Splunk Cloud?
+                                Is Dashboard Theme Manager compatible with Splunk Cloud?
                                 <div class="faq-toggle">+</div>
                             </div>
                             <div class="faq-answer">
-                                Yes! Splunk Theme Manager works with both Splunk Enterprise and Splunk Cloud (Classic Dashboards).
+                                Yes! Dashboard Theme Manager works with both Splunk Enterprise and Splunk Cloud (Classic Dashboards).
                             </div>
                         </div>
 
@@ -575,7 +575,7 @@
                                 <div class="faq-toggle">+</div>
                             </div>
                             <div class="faq-answer">
-                                Absolutely. You can use our built-in CSS editor or upload your own CSS files to create fully custom themes.
+                                No, Dashboard Theme Manager only supports pre-built themes, but in future versions, we plan to add custom theme support.
                             </div>
                         </div>
 
@@ -595,7 +595,7 @@
                                 <div class="faq-toggle">+</div>
                             </div>
                             <div class="faq-answer">
-                                Splunk Theme Manager is open-source and free for the community. Enterprise support options are available.
+                                Dashboard Theme Manager is open-source and free for the community. Enterprise support options are available.
                             </div>
                         </div>
                     </div>
@@ -662,7 +662,7 @@
                     <div class="footer-grid">
                       <!-- Brand Column -->
                       <div class="footer-col brand-col">
-                        <a href="#" class="footer-logo"><span>Splunk Theme</span> Manager</a>
+                        <a href="#" class="footer-logo"><span>Dashboard</span> Theme Manager</a>
                         <p class="footer-tagline">
                           Elevating Splunk dashboards to the next level with modern design principles.
                         </p>
@@ -709,7 +709,7 @@
                     
                     <div class="footer-bottom">
                         <div class="copyright">
-                             Splunk Theme Manager build by Asim Akram. Open Source.
+                             Dashboard Theme Manager build by Asim Akram. Open Source.
                         </div>
                         <div class="status-indicator">
                             <span class="status-dot"></span> All Themes Operational

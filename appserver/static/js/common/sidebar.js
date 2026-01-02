@@ -24,7 +24,7 @@ require([
                     </svg>
                 </div>
                 <div class="tm-logo-text">
-                    <span class="tm-logo-brand">splunk<span class="tm-brand-accent">&gt;</span></span>
+                    <span class="tm-logo-brand">Dashboard<span class="tm-brand-accent">&gt;</span></span>
                     <span class="tm-logo-app">Theme Manager</span>
                 </div>
             </div>

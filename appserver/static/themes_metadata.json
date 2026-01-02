@@ -468,6 +468,45 @@
         "Monospace technical typography",
         "Scientific instrument feel"
       ]
+    },
+    {
+      "id": "dhm_dashboard_bismuth_flux",
+      "name": "Bismuth Flux",
+      "description": "Geometric iridescent theme inspired by bismuth crystals with stepped gradients and metallic finish",
+      "mode": "Dark",
+      "category": "Nature",
+      "order": 27,
+      "featured": true,
+      "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_bismuth_flux.png",
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_bismuth_flux.png",
+      "features": [
+        "Iridescent Oxide Gradients",
+        "Geometric 'Hopper Crystal' UI",
+        "Stepped Border Styling",
+        "Monospace Tech Typography",
+        "Metallic Surface Aesthetic"
+      ]
+    },
+    {
+      "id": "dhm_dashboard_plasma_storm",
+      "name": "Plasma Storm",
+      "description": "Electrifying theme with animated plasma effects, lightning arcs, and high-energy particle systems",
+      "mode": "Dark",
+      "category": "Vibrant",
+      "order": 28,
+      "featured": true,
+      "editor": 0,
+      "thumb": "/static/app/dashboard_theme_manager/images/thumb/dhm_dashboard_thumb_plasma_storm.png",
+      "image": "/static/app/dashboard_theme_manager/images/themes/dhm_dashboard_plasma_storm.png",
+      "features": [
+        "Animated Particle System Background",
+        "Electric Lightning Arc Effects",
+        "Continuous Plasma Pulse Animations",
+        "Hexagonal Energy Field UI",
+        "Voltage Display LED Aesthetics",
+        "High-Energy Sci-Fi Design"
+      ]
     }
   ]
 }

@@ -383,7 +383,9 @@ Use these tokens throughout your CSS for:
 ────────────────────────────
 1️⃣1️⃣ CUSTOM SVG BACKGROUNDS AND VISUAL ENHANCEMENT
 ────────────────────────────
-Elevate your theme with custom SVG background patterns that reinforce the visual identity:
+
+- Elevate your theme with custom SVG background patterns that reinforce the visual identity:
+- Add custom svg icon on each panel (DASHBOARD TITLE, INPUTS, FILTER PANELS, CHARTS, TABLES, etc)
 
 **Dashboard Body Background:**
 

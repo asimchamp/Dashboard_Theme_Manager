@@ -453,8 +453,8 @@ require([
             return true;
         });
 
-        // Sort by order
-        filteredThemes.sort((a, b) => a.order - b.order);
+        // Sort by order (Descending: Highest order first)
+        filteredThemes.sort((a, b) => b.order - a.order);
     }
 
     /**

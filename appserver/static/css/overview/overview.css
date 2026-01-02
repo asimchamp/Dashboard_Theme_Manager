@@ -29,7 +29,7 @@ html,
 .panel-body {
   font-family: "Inter", sans-serif;
   background-color: var(--bg-color) !important;
-  background-image: url("/static/app/dashboard_theme_manager/css/overview/1.png") !important;
+  background-image: url("/static/app/dashboard_theme_manager/images/app/1.png") !important;
   background-position: center !important;
   background-size: cover !important;
   background-attachment: fixed !important;

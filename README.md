@@ -74,6 +74,12 @@ Our library includes over 25 meticulously crafted themes. Here are some of our c
 3.  **Preview**: Click on any theme card to see a larger preview and detailed feature list.
 4.  **Apply Theme**: (Coming Soon) Use the "Apply" button to instantly update your target dashboard's XML.
 
+---
+
+## ⚠️ Known Limitations
+
+- **Private Dashboards Not Supported**: Currently, the Theme Manager only supports app-level (shared) dashboards. Private dashboards stored in user-specific directories (`/etc/users/<username>/...`) are not yet supported. This capability will be added in a future release.
+
 ## 📜 License & Support
 
 _Built with ❤️ for the Splunk Community._

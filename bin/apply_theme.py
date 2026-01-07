@@ -117,11 +117,25 @@ class ApplyThemeHandler(PersistentServerConnectionApplication):
             # Get Splunk home
             splunk_home = os.environ.get('SPLUNK_HOME', '/Applications/Splunk')
             
+            # Extract username from request session
+            username = request.get('session', {}).get('user', '')
+            
             # Paths to check for dashboard file
-            paths = [
+            # Check user-specific paths first (for private dashboards), then app-level paths
+            paths = []
+            
+            # Add user-scoped paths if username is available
+            if username:
+                paths.extend([
+                    os.path.join(splunk_home, 'etc', 'users', username, source_app, 'local', 'data', 'ui', 'views', f'{dashboard}.xml'),
+                    os.path.join(splunk_home, 'etc', 'users', username, source_app, 'data', 'ui', 'views', f'{dashboard}.xml'),
+                ])
+            
+            # Add app-level paths
+            paths.extend([
                 os.path.join(splunk_home, 'etc', 'apps', source_app, 'local', 'data', 'ui', 'views', f'{dashboard}.xml'),
                 os.path.join(splunk_home, 'etc', 'apps', source_app, 'default', 'data', 'ui', 'views', f'{dashboard}.xml'),
-            ]
+            ])
             
             dashboard_path = None
             for path in paths:
@@ -181,8 +195,15 @@ class ApplyThemeHandler(PersistentServerConnectionApplication):
             # Reset theme attribute to default dark
             root.set('theme', 'dark')
             
-            # Save to local directory
-            local_path = os.path.join(splunk_home, 'etc', 'apps', source_app, 'local', 'data', 'ui', 'views', f'{dashboard}.xml')
+            # Determine save path based on where the dashboard was found
+            # Save to the same location type (user-scoped or app-scoped)
+            if dashboard_path and '/users/' in dashboard_path:
+                # User-scoped dashboard - save back to user directory
+                local_path = os.path.join(splunk_home, 'etc', 'users', username, source_app, 'local', 'data', 'ui', 'views', f'{dashboard}.xml')
+            else:
+                # App-scoped dashboard - save to app local directory
+                local_path = os.path.join(splunk_home, 'etc', 'apps', source_app, 'local', 'data', 'ui', 'views', f'{dashboard}.xml')
+            
             os.makedirs(os.path.dirname(local_path), exist_ok=True)
             
             # Write XML
@@ -264,11 +285,25 @@ class ApplyThemeHandler(PersistentServerConnectionApplication):
             # Get the mode for the selected theme (default to dark if not found)
             theme_mode = theme_mode_map.get(theme_id, 'dark')
             
-            # Paths to check for dashboard file - look in the source app
-            paths = [
+            # Extract username from request session
+            username = request.get('session', {}).get('user', '')
+            
+            # Paths to check for dashboard file
+            # Check user-specific paths first (for private dashboards), then app-level paths
+            paths = []
+            
+            # Add user-scoped paths if username is available
+            if username:
+                paths.extend([
+                    os.path.join(splunk_home, 'etc', 'users', username, source_app, 'local', 'data', 'ui', 'views', f'{dashboard}.xml'),
+                    os.path.join(splunk_home, 'etc', 'users', username, source_app, 'data', 'ui', 'views', f'{dashboard}.xml'),
+                ])
+            
+            # Add app-level paths
+            paths.extend([
                 os.path.join(splunk_home, 'etc', 'apps', source_app, 'local', 'data', 'ui', 'views', f'{dashboard}.xml'),
                 os.path.join(splunk_home, 'etc', 'apps', source_app, 'default', 'data', 'ui', 'views', f'{dashboard}.xml'),
-            ]
+            ])
             
             dashboard_path = None
             for path in paths:
@@ -323,8 +358,15 @@ class ApplyThemeHandler(PersistentServerConnectionApplication):
             new_panel.set('depends', '$alwaysHideCSS$')
             new_panel.text = ''  # Force explicit closing tag instead of self-closing
             
-            # Save to local directory of the source app
-            local_path = os.path.join(splunk_home, 'etc', 'apps', source_app, 'local', 'data', 'ui', 'views', f'{dashboard}.xml')
+            # Determine save path based on where the dashboard was found
+            # Save to the same location type (user-scoped or app-scoped)
+            if dashboard_path and '/users/' in dashboard_path:
+                # User-scoped dashboard - save back to user directory
+                local_path = os.path.join(splunk_home, 'etc', 'users', username, source_app, 'local', 'data', 'ui', 'views', f'{dashboard}.xml')
+            else:
+                # App-scoped dashboard - save to app local directory
+                local_path = os.path.join(splunk_home, 'etc', 'apps', source_app, 'local', 'data', 'ui', 'views', f'{dashboard}.xml')
+            
             os.makedirs(os.path.dirname(local_path), exist_ok=True)
             
             # Write XML - only include declaration if original had one
